@@ -16,8 +16,8 @@ CREATE TABLE [species] (
   [id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 --[taxonomy_id] INTEGER NOT NULL,
   [name] varchar(32) NOT NULL,
-  [about] varchar(255) DEFAULT NULL,
---FOREIGN KEY ([taxonomy_id]) REFERENCES [taxonomy] ([id]) 
+  [about] varchar(255) DEFAULT NULL
+--,FOREIGN KEY ([taxonomy_id]) REFERENCES [taxonomy] ([id]) 
 --  ON DELETE CASCADE ON UPDATE CASCADE,
 );
 
@@ -29,7 +29,7 @@ CREATE TABLE [creature] (
   [name] varchar(32) NOT NULL,
   [detail] text DEFAULT NULL,
   FOREIGN KEY ([species_id]) REFERENCES [species] ([id]) 
-   ON DELETE CASCADE ON UPDATE CASCADE,
+   ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 
