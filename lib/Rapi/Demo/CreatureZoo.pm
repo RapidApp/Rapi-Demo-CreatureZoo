@@ -3,7 +3,7 @@ package Rapi::Demo::CreatureZoo;
 use strict;
 use warnings;
 
-# ABSTRACT: PSGI version of the RapidApp "CreatureZoo" demo
+# ABSTRACT: RapidApp::Builder demo application
 
 use RapidApp 1.0400;
 
@@ -20,7 +20,7 @@ use Module::Runtime;
 
 our $VERSION = '0.001';
 
-has '+base_appname', default => sub { 'Rapi::Demo::CreatureZoo::App' };
+has '+base_appname', default => sub { 'CreatureZoo::App' };
 has '+debug',        default => sub {1};
 
 sub _build_plugins {[ 'RapidApp::RapidDbic' ]}
@@ -34,10 +34,6 @@ has 'share_dir', is => 'ro', isa => Str, lazy => 1, default => sub {
   )
 };
 
-has '_init_creaturezoo_db', is => 'ro', isa => Str, lazy => 1, default => sub {
-  my $self = shift;
-  file( $self->share_dir, '_init_creaturezoo.db' )->stringify
-}, init_arg => undef;
 
 has 'creaturezoo_db', is => 'ro', isa => Str, lazy => 1, default => sub {
   my $self = shift;
@@ -51,12 +47,7 @@ has '+inject_components', default => sub {
   my $model = 'Rapi::Demo::CreatureZoo::Model::DB';
   
   my $db = file( $self->creaturezoo_db );
-  
-  $self->init_db unless (-f $db);
-  
-  # Make sure the path is valid/exists:
-  $db->resolve;
-  
+
   Module::Runtime::require_module($model);
   $model->config->{connect_info}{dsn} = "dbi:SQLite:$db";
 
@@ -66,28 +57,13 @@ has '+inject_components', default => sub {
 };
 
 
-sub init_db {
-  my ($self, $ovr) = @_;
+after 'bootstrap' => sub {
+  my $self = shift;
   
-  my ($src,$dst) = (file($self->_init_creaturezoo_db),file($self->creaturezoo_db));
-  
-  die "init_db(): ERROR: init db file '$src' not found!" unless (-f $src);
+  my $c = $self->appname;
+  $c->model('DB')->_auto_deploy_schema
+};
 
-  if(-e $dst) {
-    if($ovr) {
-      $dst->remove;
-    }
-    else {
-      die "init_db(): Destination file '$dst' already exists -- call with true arg to overwrite.";
-    }
-  }
-  
-  print STDERR "Initializing $dst\n" if ($self->debug);
-  #$src->copy_to( $dst );
-  # Create as new file instead of copying to avoid perm issues in a cross-platform manner:
-  # (also not bothering to do this in chunks because the file is smaller than 1M)
-  $dst->spew( scalar $src->slurp );
-}
 
 1;
 

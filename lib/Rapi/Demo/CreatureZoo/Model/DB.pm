@@ -6,11 +6,13 @@ use warnings;
 use Moo;
 extends 'Catalyst::Model::DBIC::Schema';
 
+use Try::Tiny;
+
 __PACKAGE__->config(
     schema_class => 'Rapi::Demo::CreatureZoo::DB',
     
     connect_info => {
-        dsn => 'dbi:SQLite:creaturezoo.db', #<-- Note: this gets changed in Rapi::Demo::CreatureZoo
+        #dsn => 'dbi:SQLite:creaturezoo.db', #<-- Note: this gets set in Rapi::Demo::CreatureZoo
         user => '',
         password => '',
         sqlite_unicode => q{1},
@@ -36,6 +38,28 @@ __PACKAGE__->config(
       }, # (virtual_columns)
    } # (RapidDbic)
 );
+
+
+sub _auto_deploy_schema {
+  my $self = shift;
+  my $schema = $self->schema;
+  
+  try {
+    # This will barf if the table doesn't exist:
+    $schema->resultset('Creature')->count;
+  }
+  catch {
+    warn join("","\n",
+      "  ** Auto-Deploying fresh schema ", (ref $self),'/',(ref $schema),' **',
+      "\n"
+    );
+    
+    $schema->txn_do( sub {
+      $schema->deploy;
+      $schema->_auto_populate if ($schema->can('_auto_populate')); #<-- future
+    });
+  };
+};
 
 
 1;
