@@ -22,6 +22,7 @@ __PACKAGE__->config(
     
     RapidDbic => {
       hide_fk_columns => 1,
+      grid_class => 'Rapi::Demo::CreatureZoo::Module::TableBase',
       grid_params => {
          '*defaults' => { # Defaults for all Sources
             updatable_colspec => ['*'],
@@ -39,7 +40,7 @@ __PACKAGE__->config(
           #multiIconCls => '',
           columns => {
             id            => {  },
-            species_id    => {  },
+            species_id    => { profiles => ['hidden'] },
             name          => {  },
             image_html    => {  
               header => 'Image',
@@ -62,7 +63,7 @@ __PACKAGE__->config(
             high_risk     => {  },
             market_value  => {  },
             detail        => {  },
-            enclosure_id  => {  },
+            enclosure_id  => { profiles => ['hidden'] },
             species       => {  },
             enclosure     => {  },
           }
@@ -75,7 +76,7 @@ __PACKAGE__->config(
           #multiIconCls => '',
           columns => {
             id           => {  },
-            creature_id  => {  },
+            creature_id  => { profiles => ['hidden'] },
             recorded     => {  },
             weight_lbs   => {  },
             comment      => {  },
@@ -91,7 +92,7 @@ __PACKAGE__->config(
           columns => {
             id                  => {  },
             name                => {  },
-            enclosure_class_id  => {  },
+            enclosure_class_id  => { profiles => ['hidden'] },
             length_ft           => {  },
             width_ft            => {  },
             height_ft           => {  },
