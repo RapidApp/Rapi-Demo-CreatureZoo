@@ -31,7 +31,98 @@ __PACKAGE__->config(
 
       }, # (grid_params)
       TableSpecs => {
-
+        Creature => {
+          display_column => 'name',
+          title => 'Creature',
+          title_multi => 'Creatures',
+          #iconCls => '',
+          #multiIconCls => '',
+          columns => {
+            id            => {  },
+            species_id    => {  },
+            name          => {  },
+            image_html    => {  
+              header => 'Image',
+              width => 110,
+              renderer => join('','Ext.ux.RapidApp.getImgTagRendererDefault(',
+                '"/assets/local/misc/static/img/noimage.jpg","autosize",150',
+              ')'),
+              editor => {
+                xtype => 'cas-image-field',
+                maxImageWidth => 300,
+                maxImageHeight => 300,
+                minHeight => 36,
+                minWidth => 36,
+                renderValFn => join('','Ext.ux.RapidApp.getImgTagRendererDefault(',
+                  '"/assets/local/misc/static/img/noimage.jpg","autosize",150',
+                ')')
+              }
+            },
+            dob           => {  },
+            high_risk     => {  },
+            market_value  => {  },
+            detail        => {  },
+            enclosure_id  => {  },
+            species       => {  },
+            enclosure     => {  },
+          }
+        },
+        CreatureWeightLog => {
+          display_column => 'recorded',
+          title => 'Weigt Log',
+          title_multi => 'Weight Logs',
+          #iconCls => '',
+          #multiIconCls => '',
+          columns => {
+            id           => {  },
+            creature_id  => {  },
+            recorded     => {  },
+            weight_lbs   => {  },
+            comment      => {  },
+            creature     => {  },
+          }
+        },
+        Enclosure => {
+          display_column => 'name',
+          title => 'Enclosure',
+          title_multi => 'Enclosures',
+          #iconCls => '',
+          #multiIconCls => '',
+          columns => {
+            id                  => {  },
+            name                => {  },
+            enclosure_class_id  => {  },
+            length_ft           => {  },
+            width_ft            => {  },
+            height_ft           => {  },
+            open_top            => {  },
+            detail              => {  },
+            enclosure_class     => {  },
+          }
+        },
+        EnclosureClass => {
+          display_column => 'classification',
+          title => 'Enclosure Class',
+          title_multi => 'Enclosure Classes',
+          #iconCls => '',
+          #multiIconCls => '',
+          columns => {
+            id             => {  },
+            classification => {  }
+          }
+        },
+        Species => {
+          display_column => 'name',
+          title => 'Species',
+          title_multi => 'Species List',
+          #iconCls => 'icon-worker',
+          #multiIconCls => 'icon-workers',
+          columns => {
+            id     => {  },
+            name   => {  },
+            about  => {  },
+          }
+        },
       }, # (TableSpecs)
       virtual_columns => {
 
