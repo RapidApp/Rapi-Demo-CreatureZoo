@@ -5,7 +5,7 @@ use warnings;
 
 # ABSTRACT: RapidApp::Builder demo application
 
-use RapidApp 1.0401_02;
+use RapidApp 1.0401_03;
 
 use Moose;
 extends 'RapidApp::Builder';

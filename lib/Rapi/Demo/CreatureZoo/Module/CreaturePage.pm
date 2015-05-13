@@ -16,12 +16,5 @@ has '+tt_include_path', default => sub {
   dir( $self->app->ra_builder->share_dir )->stringify;
 };
 
-before 'content' => sub {
-  my $self = shift;
-  
-  $self->apply_extconfig( tabTitle => $self->req_Row->name );
-};
-
-
 1;
 
