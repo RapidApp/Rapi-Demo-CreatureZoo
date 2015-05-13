@@ -36,8 +36,8 @@ __PACKAGE__->config(
           display_column => 'name',
           title => 'Creature',
           title_multi => 'Creatures',
-          #iconCls => '',
-          #multiIconCls => '',
+          iconCls => 'icon-bug-yellow',
+          multiIconCls => 'icon-bugs-yellow',
           columns => {
             id            => {  },
             species_id    => { profiles => ['hidden'] },
