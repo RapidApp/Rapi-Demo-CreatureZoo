@@ -29,6 +29,12 @@ __PACKAGE__->config(
             creatable_colspec => ['*'],
             destroyable_relspec => ['*']
          }, # ('*defaults')
+         Creature => {
+            include_colspec => ['*','species.*']
+         },
+         CreatureWeightLog => {
+            include_colspec => ['*','*.*']
+         }
 
       }, # (grid_params)
       TableSpecs => {
@@ -39,9 +45,9 @@ __PACKAGE__->config(
           iconCls => 'icon-bug-yellow',
           multiIconCls => 'icon-bugs-yellow',
           columns => {
-            id            => {  },
+            id            => { header => 'Id', width => 45, hidden => 1  },
             species_id    => { profiles => ['hidden'] },
-            name          => {  },
+            name          => { header => 'Name', width => 130 },
             image_html    => {  
               header => 'Image',
               width => 110,
@@ -59,73 +65,88 @@ __PACKAGE__->config(
                 ')')
               }
             },
-            dob           => {  },
-            high_risk     => {  },
-            market_value  => {  },
-            detail        => {  },
-            enclosure_id  => { profiles => ['hidden'] },
-            species       => {  },
-            enclosure     => {  },
+            dob           => { header => 'DOB',   },
+            high_risk     => { header => 'High Risk?',   },
+            market_value  => { header => 'Market Value', width => 100, profiles => ['money'] },
+            detail        => { header => 'Details', hidden => 1,   profiles => ['html'] },
+            enclosure_id  => { profiles => ['hidden'],             profiles => ['hidden'] },
+            species       => { header => 'Species',  width => 130    },
+            enclosure     => { header => 'Enclosure', width => 130   },
+            creature_weight_logs => { header => 'Weight Logs' },
+            last_weight   => { header => 'Last Weight (lbs)', width => 110 },
           }
         },
         CreatureWeightLog => {
           display_column => 'recorded',
           title => 'Weigt Log',
           title_multi => 'Weight Logs',
-          #iconCls => '',
-          #multiIconCls => '',
+          iconCls => 'icon-history',
+          multiIconCls => 'icon-history',
           columns => {
-            id           => {  },
+            id           => { header => 'Id', width => 45 },
             creature_id  => { profiles => ['hidden'] },
-            recorded     => {  },
-            weight_lbs   => {  },
-            comment      => {  },
-            creature     => {  },
+            recorded     => { header => 'Recorded' },
+            weight_lbs   => { header => 'Weight (lbs)' },
+            comment      => { header => 'Comments' },
+            creature     => { header => 'Creature' },
           }
         },
         Enclosure => {
           display_column => 'name',
           title => 'Enclosure',
           title_multi => 'Enclosures',
-          #iconCls => '',
-          #multiIconCls => '',
+          iconCls => 'icon-jar',
+          multiIconCls => 'icon-jars',
           columns => {
-            id                  => {  },
-            name                => {  },
+            id                  => { header => 'Id',   width => 45  },
+            name                => { header => 'Name', width => 120   },
             enclosure_class_id  => { profiles => ['hidden'] },
-            length_ft           => {  },
-            width_ft            => {  },
-            height_ft           => {  },
-            open_top            => {  },
-            detail              => {  },
-            enclosure_class     => {  },
+            length_ft           => { header => 'Length (ft)',   },
+            width_ft            => { header => 'Width (ft)',   },
+            height_ft           => { header => 'Height (ft)',   },
+            open_top            => { header => 'Open Top?',   },
+            detail              => { hidden => 1, header => 'Details',   },
+            enclosure_class     => { header => 'Enclosure Class',   },
           }
         },
         EnclosureClass => {
           display_column => 'classification',
           title => 'Enclosure Class',
           title_multi => 'Enclosure Classes',
-          #iconCls => '',
-          #multiIconCls => '',
+          iconCls => 'icon-enc-class',
+          multiIconCls => 'icon-enc-classes',
           columns => {
-            id             => {  },
-            classification => {  }
+            id             => { header => 'Id'  },
+            classification => { header => 'Classification' }
           }
         },
         Species => {
           display_column => 'name',
           title => 'Species',
           title_multi => 'Species List',
-          #iconCls => 'icon-worker',
-          #multiIconCls => 'icon-workers',
+          iconCls => 'icon-panda',
+          multiIconCls => 'icon-panda',
           columns => {
-            id     => {  },
-            name   => {  },
-            about  => {  },
+            id         => { header => 'Id', width => 45  },
+            name       => { header => 'Name', width => 110  },
+            about      => { header => 'About', width => 350, hidden => 1, profiles => ['html']  },
+            creatures  => { header => 'Creatures' }
           }
         },
       }, # (TableSpecs)
       virtual_columns => {
+        Creature => {
+          last_weight => {
+            data_type => "decimal", 
+            is_nullable => 1, 
+            size => [6, 2],
+            sql => join(' ',
+              'SELECT weight_lbs FROM creature_weight_log',
+              'WHERE creature_id = self.id',
+              'ORDER BY recorded DESC LIMIT 1'
+            )
+          }
+        }
 
       }, # (virtual_columns)
    } # (RapidDbic)
