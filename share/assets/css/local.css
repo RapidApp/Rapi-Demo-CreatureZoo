@@ -43,6 +43,7 @@ div.creature-datasheet {
 
 .creature-datasheet table.top-table div.detail {
   padding:5px;
+  max-width: 500px;
 }
 
 
