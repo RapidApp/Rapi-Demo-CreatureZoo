@@ -27,9 +27,9 @@ has '+debug',        default => sub {1};
 
 sub _build_plugins {[
   'RapidApp::RapidDbic',
-  #'RapidApp::AuthCore',
-  #'RapidApp::NavCore',
-  #'RapidApp::CoreSchemaAdmin',
+  'RapidApp::AuthCore',
+  'RapidApp::NavCore',
+  'RapidApp::CoreSchemaAdmin',
 ]}
 
 sub _build_config {
@@ -68,6 +68,9 @@ sub _build_config {
     'Controller::SimpleCAS' => {
       store_path	=> $self->cas_store_dir
     },
+    'Model::RapidApp::CoreSchema' => {
+      sqlite_file => file( $self->coreschema_db )->absolute->stringify
+    }
   }
 }
 
@@ -90,6 +93,11 @@ has 'data_dir', is => 'ro', isa => Str, lazy => 1, default => sub {
 has 'creaturezoo_db', is => 'ro', isa => Str, lazy => 1, default => sub {
   my $self = shift;
   file( $self->data_dir, 'creaturezoo.db' )->stringify
+};
+
+has 'coreschema_db', is => 'ro', isa => Str, lazy => 1, default => sub {
+  my $self = shift;
+  file( $self->data_dir, 'rapidapp_coreschema.db' )->stringify
 };
 
 has 'cas_store_dir', is => 'ro', isa => Str, lazy => 1, default => sub {
