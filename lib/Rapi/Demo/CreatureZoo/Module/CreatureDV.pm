@@ -12,6 +12,7 @@ use Path::Class qw(file dir);
 
 has '+include_colspec', default => sub {['*']};
 has '+updatable_colspec', default => sub {['*']};
+has '+destroyable_relspec', default => sub {['*']};
 
 has 'ResultSource', is => 'ro', lazy => 1, default => sub {
   my $self = shift;

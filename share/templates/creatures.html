@@ -42,15 +42,6 @@ Uses the same data as the auto-generated
     </tr>
     
     <tr>
-      <td colspan=2>
-        <b>Details</b>
-        <div class="detail">
-          [% r.autofield.detail %]
-        </div>
-      </td>
-    </tr>
-    
-    <tr>
       <th>Species:</th>
       <td>[% r.autofield.species %]</td>
     </tr>
@@ -58,11 +49,6 @@ Uses the same data as the auto-generated
     <tr>
       <th>Date of Birth:</th>
       <td>[% r.autofield.dob %]</td>
-    </tr>
-
-    <tr>
-      <th>DOB (raw column value, ro):</th>
-      <td>{dob}</td>
     </tr>
 
     <tr>
@@ -81,15 +67,6 @@ Uses the same data as the auto-generated
     </tr>
     
     <tr>
-      <td colspan=2>
-        <b>Species info</b>
-        <div class="detail">
-          [% r.autofield.species__about %]
-        </div>
-      </td>
-    </tr>
-
-    <tr>
       <th>High-risk animal ?:</th>
       <td>[% r.autofield.high_risk %]</td>
     </tr>
@@ -100,18 +77,22 @@ Uses the same data as the auto-generated
     </tr>
 
     <tr>
-      <th>Other cool datapoint:</th>
-      <td>Other cool content</td>
-    </tr>
-
-    <tr>
       <th>Enclosure:</th>
       <td>[% r.autofield.enclosure %]</td>
+    </tr>
+    <tr>
+      <td colspan=2>
+        <div style="float:right;">
+          [% r.delete_record %]
+        </div>
+      </td>
+    
     </tr>
     
   </table>
 
 </div>
+
 
 <br>
 </tpl>
