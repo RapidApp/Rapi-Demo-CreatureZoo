@@ -18,6 +18,7 @@ use FindBin;
 use Path::Class qw(file dir);
 use Module::Runtime;
 use Scalar::Util 'blessed';
+use Cwd;
 
 our $VERSION = '0.001';
 
@@ -45,6 +46,11 @@ sub _build_config {
     "assets dir ($loc_assets_dir) not found; ", 
     __PACKAGE__, " may not be installed properly.\n"
   );
+  
+  unless(-d (my $dir = $self->data_dir)) {
+    print STDERR "Initializing local data_dir '$dir'\n" if ($self->debug);
+    dir($dir)->mkpath
+  }
   
   $self->_init_cas unless (-d $self->cas_store_dir);
   
@@ -74,17 +80,22 @@ has 'share_dir', is => 'ro', isa => Str, lazy => 1, default => sub {
   )
 };
 
+has 'data_dir', is => 'ro', isa => Str, lazy => 1, default => sub {
+  my $self = shift;
+  # Default to the cwd
+  dir( cwd(), 'creaturezoo_data')->stringify;
+};
+
 
 has 'creaturezoo_db', is => 'ro', isa => Str, lazy => 1, default => sub {
   my $self = shift;
-  # Default to the cwd
-  file( 'creaturezoo.db' )->stringify
+  file( $self->data_dir, 'creaturezoo.db' )->stringify
 };
 
 has 'cas_store_dir', is => 'ro', isa => Str, lazy => 1, default => sub {
   my $self = shift;
   # Default to the cwd
-  dir( 'cas_store' )->stringify
+  dir( $self->data_dir, 'cas_store' )->stringify
 };
 
 
