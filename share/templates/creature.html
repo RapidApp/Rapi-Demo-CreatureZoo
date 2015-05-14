@@ -21,13 +21,10 @@
 
       </td>
     </tr>
-    
-    <tr>
-      <th colspan=2>Details</th>
-    </tr>
-    <tr>
       
+    <tr>
       <td colspan=2>
+        <b>Details</b>
         <div class="detail">
           [% r.autofield.detail %]
         </div>
@@ -49,22 +46,24 @@
       <td>{dob}</td>
     </tr>
 
-
+    <tr>
+      <th>Last Weight (lbs):</th>
+      <td>[% r.autofield.last_weight %]</td>
+    </tr>
 
     <tr>
       <th>Species:</th>
       <td>[% r.autofield.species %]</td>
     </tr>
-
+    
     <tr>
-      <th colspan=2>Species info</th>
+      <td colspan=2>
+        <b>Species info</b>
+        <div class="detail">
+          [% r.autofield.species__about %]
+        </div>
+      </td>
     </tr>
-    <tr>
-      <div class="detail">
-        <td colspan=2>[% r.autofield.species__about %]</td>
-      </div>
-    </tr>
-
 
     <tr>
       <th>High-risk animal ?:</th>
@@ -79,23 +78,6 @@
     <tr>
       <th>Other cool datapoint:</th>
       <td>Other cool content</td>
-    </tr>
-
-    <tr>
-      <th>Enclosure:</th>
-      <td>[% r.autofield.enclosure %]</td>
-    </tr>
-
-    <tr>
-      <th colspan=2>Details</th>
-    </tr>
-    <tr>
-      
-      <td colspan=2>
-        <div class="detail">
-          [% r.autofield.detail %]
-        </div>
-      </td>
     </tr>
 
 
