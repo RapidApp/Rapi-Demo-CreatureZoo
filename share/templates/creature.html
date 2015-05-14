@@ -7,54 +7,98 @@
 
 <div class="creature-datasheet">
 
-  <div>
-  [% r.autofield.name %]
-  </div>
+  <h4>Creature datasheet</h4>
   
-  <br><br>
+  <table class="top-table">
+    <tr>
+      <th>Name:</th>
+      <td>[% r.autofield.name %]</td>
+    </tr>
+    <tr>
+      <td colspan=2 class="img-cell">
 
-  <div>
-  [% r.autofield.species %]
-  </div>
-  
-  <br><br>
+        [% r.autofield.image_html %]
 
-  <div>
-  [% r.autofield.image_html %]
-  </div>
-  
-  <br><br>
+      </td>
+    </tr>
+    
+    <tr>
+      <th colspan=2>Details</th>
+    </tr>
+    <tr>
+      
+      <td colspan=2>
+        <div class="detail">
+          [% r.autofield.detail %]
+        </div>
+      </td>
+    </tr>
+    
+    <tr>
+      <th>Species:</th>
+      <td>[% r.autofield.species %]</td>
+    </tr>
 
-  <div>
-  [% r.autofield.dob %]
-  </div>
-  
-  <br><br>
-  
-  dob (read-only): {dob}
-  
-  <br><br>
+    <tr>
+      <th>Date of Birth:</th>
+      <td>[% r.autofield.dob %]</td>
+    </tr>
 
-  <div>
-  [% r.autofield.high_risk %]
-  </div>
-  
-  <br><br>
+    <tr>
+      <th>DOB (raw column value, ro):</th>
+      <td>{dob}</td>
+    </tr>
 
-  <div>
-  [% r.autofield.market_value %]
-  </div>
-  
-  <br><br>
 
-  <div>
-  [% r.autofield.enclosure %]
-  </div>
-  
-  <br><br>
 
-  <div>
-  [% r.autofield.detail %]
-  </div>
+    <tr>
+      <th>Species:</th>
+      <td>[% r.autofield.species %]</td>
+    </tr>
+
+    <tr>
+      <th colspan=2>Species info</th>
+    </tr>
+    <tr>
+      <div class="detail">
+        <td colspan=2>[% r.autofield.species__about %]</td>
+      </div>
+    </tr>
+
+
+    <tr>
+      <th>High-risk animal ?:</th>
+      <td>[% r.autofield.high_risk %]</td>
+    </tr>
+
+    <tr>
+      <th>Market value ?:</th>
+      <td>[% r.autofield.market_value %]</td>
+    </tr>
+
+    <tr>
+      <th>Other cool datapoint:</th>
+      <td>Other cool content</td>
+    </tr>
+
+    <tr>
+      <th>Enclosure:</th>
+      <td>[% r.autofield.enclosure %]</td>
+    </tr>
+
+    <tr>
+      <th colspan=2>Details</th>
+    </tr>
+    <tr>
+      
+      <td colspan=2>
+        <div class="detail">
+          [% r.autofield.detail %]
+        </div>
+      </td>
+    </tr>
+
+
+  </table>
 
 </div>
