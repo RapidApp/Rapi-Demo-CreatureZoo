@@ -1,0 +1,123 @@
+
+<title class="icon-bugs-yellow">Creatures DataView</title>
+
+
+<div class="creature-datasheet">
+
+<center>
+<h2>Creatures DataView</h2>
+
+<br>
+
+Uses the same data as the auto-generated
+<a 
+  class="with-icon icon-bugs-yellow"
+  href="#!/main/db/db_creature"
+>Creatures Grid</a>
+<br>
+
+<tpl for=".">
+<div class="dv-select">
+
+  <table class="top-table">
+    <tr>
+      <th>Name:</th>
+      <td>[% r.autofield.name %]</td>
+    </tr>
+    <tr>
+      <td colspan=2 class="img-cell">
+
+        [% r.autofield.image_html %]
+
+      </td>
+    </tr>
+    
+    <tr>
+      <th>Creature page:</th>
+      <td>
+        <a href="#!/main/db/db_creature/item/{id}">
+          /main/db/db_creature/item/{id}
+        </a>
+      </td>
+    </tr>
+    
+    <tr>
+      <td colspan=2>
+        <b>Details</b>
+        <div class="detail">
+          [% r.autofield.detail %]
+        </div>
+      </td>
+    </tr>
+    
+    <tr>
+      <th>Species:</th>
+      <td>[% r.autofield.species %]</td>
+    </tr>
+
+    <tr>
+      <th>Date of Birth:</th>
+      <td>[% r.autofield.dob %]</td>
+    </tr>
+
+    <tr>
+      <th>DOB (raw column value, ro):</th>
+      <td>{dob}</td>
+    </tr>
+
+    <tr>
+      <th>Last Weight (lbs):</th>
+      <td>[% r.autofield.last_weight %]</td>
+    </tr>
+    
+    <tr>
+      <th>Weight Log:</th>
+      <td>[% r.autofield.creature_weight_logs %]</td>
+    </tr>
+
+    <tr>
+      <th>Species:</th>
+      <td>[% r.autofield.species %]</td>
+    </tr>
+    
+    <tr>
+      <td colspan=2>
+        <b>Species info</b>
+        <div class="detail">
+          [% r.autofield.species__about %]
+        </div>
+      </td>
+    </tr>
+
+    <tr>
+      <th>High-risk animal ?:</th>
+      <td>[% r.autofield.high_risk %]</td>
+    </tr>
+
+    <tr>
+      <th>Market value ?:</th>
+      <td>[% r.autofield.market_value %]</td>
+    </tr>
+
+    <tr>
+      <th>Other cool datapoint:</th>
+      <td>Other cool content</td>
+    </tr>
+
+    <tr>
+      <th>Enclosure:</th>
+      <td>[% r.autofield.enclosure %]</td>
+    </tr>
+    
+  </table>
+
+</div>
+
+<br>
+</tpl>
+
+</center>
+
+
+
+</div>

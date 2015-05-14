@@ -5,7 +5,7 @@ use warnings;
 
 # ABSTRACT: RapidApp::Builder demo application
 
-use RapidApp 1.0401_06;
+use RapidApp 1.0401_07;
 
 use Moose;
 extends 'RapidApp::Builder';
@@ -57,6 +57,9 @@ sub _build_config {
   return {
     'RapidApp' => {
       local_assets_dir => $loc_assets_dir,
+      load_modules => {
+        creatures => 'Rapi::Demo::CreatureZoo::Module::CreatureDV'
+      }
     },
     'Plugin::RapidApp::AuthCore' => {
       login_logo_url => '/assets/local/misc/static/img/creaturezoo_login_logo.png'
