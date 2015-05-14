@@ -17,6 +17,7 @@ use File::ShareDir qw(dist_dir);
 use FindBin;
 use Path::Class qw(file dir);
 use Module::Runtime;
+use Scalar::Util 'blessed';
 
 our $VERSION = '0.001';
 
@@ -45,8 +46,7 @@ sub _build_config {
     __PACKAGE__, " may not be installed properly.\n"
   );
   
-  my $file_cas_dir = dir( 'cas_store' );
-  $file_cas_dir->mkpath unless (-e $file_cas_dir);
+  $self->_init_cas unless (-d $self->cas_store_dir);
   
   return {
     'RapidApp' => {
@@ -60,7 +60,7 @@ sub _build_config {
       include_paths => [ $tpl_dir ]
     },
     'Controller::SimpleCAS' => {
-      store_path	=> $file_cas_dir->stringify
+      store_path	=> $self->cas_store_dir
     },
   }
 }
@@ -80,6 +80,19 @@ has 'creaturezoo_db', is => 'ro', isa => Str, lazy => 1, default => sub {
   # Default to the cwd
   file( 'creaturezoo.db' )->stringify
 };
+
+has 'cas_store_dir', is => 'ro', isa => Str, lazy => 1, default => sub {
+  my $self = shift;
+  # Default to the cwd
+  dir( 'cas_store' )->stringify
+};
+
+
+has '_init_cas_store_dir', is => 'ro', isa => Str, lazy => 1, default => sub {
+  my $self = shift;
+  dir( $self->share_dir, '_init_cas_store' )->stringify
+}, init_arg => undef;
+
 
 
 has '+inject_components', default => sub {
@@ -103,6 +116,47 @@ after 'bootstrap' => sub {
   my $c = $self->appname;
   $c->model('DB')->_auto_deploy_schema
 };
+
+
+
+sub _init_cas {
+  my ($self, $ovr) = @_;
+  
+  my ($src,$dst) = (dir($self->_init_cas_store_dir),dir($self->cas_store_dir));
+  
+  die "_init_cas(): ERROR: init cas dir '$src' not found!" unless (-d $src);
+
+  if(-d $dst) {
+    if($ovr) {
+      $dst->rmtree;
+    }
+    else {
+      die "_init_cas(): Destination dir '$dst' already exists -- call with true arg to overwrite.";
+    }
+  }
+  
+  print STDERR "Initializing $dst\n" if ($self->debug);
+  
+  for my $dir ($src->children) {
+    die "unexpected cas src file/dir '$dir'" unless (
+      blessed $dir && $dir->isa('Path::Class::Dir')
+      && length($dir->basename) == 2
+    );
+    
+    my $tdir = $dst->subdir($dir->basename);
+    $tdir->mkpath;
+    
+    for my $file ($dir->children) {
+      die "unexpected cas src file/dir '$dir'" unless (
+        blessed $file && $file->isa('Path::Class::File')
+        && length($file->basename) == 38
+      );
+      
+      my $tfile = $tdir->file($file->basename);
+      $tfile->spew( scalar $file->slurp );
+    }
+  }
+}
 
 
 1;
