@@ -58,6 +58,10 @@ __PACKAGE__->config(
             enclosure     => { header => 'Enclosure', width => 130   },
             creature_weight_logs => { header => 'Weight Logs' },
             last_weight   => { header => 'Last Weight (lbs)', width => 110 },
+            quick_record_weight => { 
+              header => 'Quick Log Weight', width => 150, 
+              hidden => 1, allow_add => \0 
+            },
           }
         },
         CreatureWeightLog => {
@@ -130,6 +134,21 @@ __PACKAGE__->config(
               'WHERE creature_id = self.id',
               'ORDER BY recorded DESC LIMIT 1'
             )
+          },
+          quick_record_weight => {
+            data_type => "decimal", 
+            is_nullable => 1, 
+            size => [6, 2],
+            sql => 'SELECT NULL',
+            set_function => sub {
+              my ($row, $value) = @_;
+              $row->creature_weight_logs->create({
+                creature_id => $row->id,
+                recorded    => DateTime->now( time_zone => 'local' ),
+                weight_lbs  => $value,
+                comment     => 'Quick-Recorded'
+              })
+            },
           }
         }
 

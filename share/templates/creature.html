@@ -49,11 +49,16 @@
 
     <tr>
       <th>Last Weight (lbs):</th>
-      <td>      
-      <span>
-          Last weight: [% r.autofield.last_weight %] lbs
-          ([% r.autofield.creature_weight_logs %])
-        </span>
+      <td>
+        <div>
+          <span>
+            [% r.autofield.last_weight %] lbs
+            ([% r.autofield.creature_weight_logs %])
+          </span>
+        </div>
+        <div style="float:right;font-size:0.8em;width:200px;padding-left:10px;">
+          <b><i style="color:darkgreen">Quick Record:</i></b> [% r.autofield.quick_record_weight %]
+        </div>
       </td>
     </tr>
     
