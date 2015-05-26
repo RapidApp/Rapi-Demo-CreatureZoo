@@ -65,3 +65,13 @@ div.creature-datasheet {
 .creature-datasheet table.top-table.nest > tbody > tr > th {
 	width:120px;
 }
+
+.creature-page-link {
+  text-decoration:none;
+  color:blue;
+  font-size:12px;
+}
+
+.editing-record .creature-page-link {
+  visibility: hidden;
+}

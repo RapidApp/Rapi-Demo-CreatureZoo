@@ -58,7 +58,8 @@ sub _build_config {
     'RapidApp' => {
       local_assets_dir => $loc_assets_dir,
       load_modules => {
-        creatures => 'Rapi::Demo::CreatureZoo::Module::CreatureDV'
+        creatures     => 'Rapi::Demo::CreatureZoo::Module::CreatureDV',
+        creature_grid => 'Rapi::Demo::CreatureZoo::Module::CreatureGrid'
       }
     },
     'Plugin::RapidApp::AuthCore' => {
