@@ -6,6 +6,8 @@ use warnings;
 use Moo;
 extends 'Catalyst::Model::DBIC::Schema';
 
+use RapidApp::Util qw(:all);
+
 use Try::Tiny;
 
 __PACKAGE__->config(
@@ -59,8 +61,11 @@ __PACKAGE__->config(
             creature_weight_logs => { header => 'Weight Logs' },
             last_weight   => { header => 'Last Weight (lbs)', width => 110 },
             quick_record_weight => { 
-              header => 'Quick Log Weight', width => 150, 
-              hidden => 1, allow_add => \0 
+              header => 'Quick Log Weight', width => 105, 
+              hidden => 1, allow_add => 0, sortable => 0,
+              renderer => jsfunc join('','function(v){',
+                'return \'<span class="ra-null-val"><i>Enter lbs</i></span>\';',
+              '}')
             },
           }
         },
