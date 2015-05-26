@@ -78,8 +78,16 @@ Uses the same data as the auto-generated
     
     <tr>
       <td colspan=2>
-        <div style="float:right;padding-top:5px;">
-          [% r.delete_record %]
+        <div style="padding-top:5px;">
+          <a 
+            class="with-inline-icon icon-open-to" 
+            href="#!/main/db/db_creature/item/{id}"
+            style="text-decoration:none;color:blue;font-size:12px;"
+          >View Full Datasheet</a>
+        
+          <div style="float:right">
+            [% r.delete_record %]
+          </div>
         </div>
       </td>
     </tr>

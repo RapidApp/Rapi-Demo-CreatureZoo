@@ -7,6 +7,7 @@
 div.creature-datasheet .img-cell {
   /*max-height: 250px;*/
   max-width: 250px;
+  padding-right:15px;
 }
 
 
