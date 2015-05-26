@@ -48,23 +48,7 @@ __PACKAGE__->config(
             id            => { header => 'Id', width => 45, hidden => 1  },
             species_id    => { profiles => ['hidden'] },
             name          => { header => 'Name', width => 130 },
-            image_html    => {  
-              header => 'Image',
-              width => 110,
-              renderer => join('','Ext.ux.RapidApp.getImgTagRendererDefault(',
-                '"/assets/local/misc/static/img/noimage.jpg","autosize",150',
-              ')'),
-              editor => {
-                xtype => 'cas-image-field',
-                maxImageWidth => 300,
-                maxImageHeight => 300,
-                minHeight => 36,
-                minWidth => 36,
-                renderValFn => join('','Ext.ux.RapidApp.getImgTagRendererDefault(',
-                  '"/assets/local/misc/static/img/noimage.jpg","autosize",150',
-                ')')
-              }
-            },
+            image_html    => { header => 'Image', width => 110, profiles => ['cas_img'] },
             dob           => { header => 'DOB',   },
             high_risk     => { header => 'High Risk?',   },
             market_value  => { header => 'Market Value', width => 100, profiles => ['money'] },
@@ -92,6 +76,7 @@ __PACKAGE__->config(
           }
         },
         Enclosure => {
+          auto_editor_type => 'combo',
           display_column => 'name',
           title => 'Enclosure',
           title_multi => 'Enclosures',

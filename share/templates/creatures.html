@@ -1,8 +1,11 @@
 
 <title class="icon-bugs-yellow">Creatures DataView</title>
 
-
 <div class="creature-datasheet">
+
+<a title="Reload Tab" class="ra-icon-refresh-tiny ra-autopanel-reloader">
+  <span class="ra-autopanel-reloader">Reload Tab</span>
+</a>
 
 <center>
 <h2>Creatures DataView</h2>
@@ -16,89 +19,89 @@ Uses the same data as the auto-generated
 >Creatures Grid</a>
 <br>
 
+<!-- example of inline of ALL store buttons -->
+<div style="font-size:0.9em;">
+  [% r.store_button.add    %] |  
+  [% r.store_button.edit   %] |  
+  [% r.store_button.delete %] | 
+  [% r.store_button.reload %] | 
+  [% r.store_button.save   %] | 
+  [% r.store_button.undo   %]
+</div>
+
 <tpl for=".">
-<div class="dv-select">
+<div class="dv-select" style="margin-top:20px;display:inline-block;">
 
-  <table class="top-table">
+  <table class="top-table" >
+  
     <tr>
-      <th>Name:</th>
-      <td>[% r.autofield.name %]</td>
-    </tr>
-    <tr>
-      <td colspan=2 class="img-cell">
-
-        [% r.autofield.image_html %]
-
-      </td>
-    </tr>
-    
-    <tr>
-      <th>Creature page:</th>
+      <th>
+      <div style="float:left;padding-left:4px;padding-right:4px;">  
+        <div class="x-grid3-row-checker" style="width:18px;">&nbsp;</div>
+      </div>
+      
+      Name:</th>
       <td>
-        <a href="#!/main/db/db_creature/item/{id}">
-          /main/db/db_creature/item/{id}
-        </a>
+        [% r.autofield.name %] <div style="float:right;">[% r.toggle.edit %]</div>
+        
       </td>
     </tr>
+    <tr>
+      <td >
+        <div class="img-cell">
+          [% r.autofield.image_html %]
+          
+        </div>
+      </td>
+      <td style="vertical-align:top;">
+        <table class="top-table nest">
+          <tr>
+            <th>Species:</th>
+            <td>[% r.autofield.species %]</td>
+          </tr>
+          <tr>
+            <th>Date of Birth:</th>
+            <td>[% r.autofield.dob %]</td>
+          </tr>
+          <tr>
+            <th>Market value ?:</th>
+            <td>[% r.autofield.market_value %]</td>
+          </tr>
+          <tr>
+            <th>Enclosure:</th>
+            <td>[% r.autofield.enclosure %]</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+
     
-    <tr>
-      <th>Species:</th>
-      <td>[% r.autofield.species %]</td>
-    </tr>
-
-    <tr>
-      <th>Date of Birth:</th>
-      <td>[% r.autofield.dob %]</td>
-    </tr>
-
-    <tr>
-      <th>Last Weight (lbs):</th>
-      <td>[% r.autofield.last_weight %]</td>
-    </tr>
-    
-    <tr>
-      <th>Weight Log:</th>
-      <td>[% r.autofield.creature_weight_logs %]</td>
-    </tr>
-
-    <tr>
-      <th>Species:</th>
-      <td>[% r.autofield.species %]</td>
-    </tr>
-    
-    <tr>
-      <th>High-risk animal ?:</th>
-      <td>[% r.autofield.high_risk %]</td>
-    </tr>
-
-    <tr>
-      <th>Market value ?:</th>
-      <td>[% r.autofield.market_value %]</td>
-    </tr>
-
-    <tr>
-      <th>Enclosure:</th>
-      <td>[% r.autofield.enclosure %]</td>
-    </tr>
     <tr>
       <td colspan=2>
-        <div style="float:right;">
+        <div style="float:right;padding-top:5px;">
           [% r.delete_record %]
         </div>
       </td>
-    
     </tr>
-    
   </table>
 
 </div>
 
-
-<br>
 </tpl>
 
-</center>
+<br>
+<br>
 
+<!-- example of inline of ALL store buttons -->
+<div style="font-size:0.9em;">
+  [% r.store_button.add    %] |  
+  [% r.store_button.edit   %] |  
+  [% r.store_button.delete %] | 
+  [% r.store_button.reload %] | 
+  [% r.store_button.save   %] | 
+  [% r.store_button.undo   %]
+</div>
+</center>
 
 
 </div>

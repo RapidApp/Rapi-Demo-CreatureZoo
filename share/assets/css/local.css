@@ -4,10 +4,17 @@
 /*  ------------------------
     Temp styles                   */
 
-div.creature-datasheet .img-cell img {
-  max-height: 250px;
+div.creature-datasheet .img-cell {
+  /*max-height: 250px;*/
+  max-width: 250px;
 }
 
+
+/*
+div.creature-datasheet .img-cell > * {
+  display: block;
+}
+*/
 
 div.creature-datasheet {
   margin: 10px;
@@ -43,9 +50,17 @@ div.creature-datasheet {
 
 .creature-datasheet table.top-table div.detail {
   padding:5px;
-  max-width: 500px;
+  max-width: 700px;
 }
 
 
 /*  ---------------------------------------------------- */
 
+
+.creature-datasheet table.top-table.nest {
+   min-width: 300px;
+   vertical-align: top;
+}
+.creature-datasheet table.top-table.nest > tbody > tr > th {
+	width:120px;
+}
