@@ -67,6 +67,11 @@ __PACKAGE__->config(
                 'return \'<span class="ra-null-val"><i>Enter lbs</i></span>\';',
               '}')
             },
+            weight_chart => {
+              header => 'Weight History [Line Chart]', 
+              width => 420, hidden => 1, sortable => 0,
+              renderer => 'Ext.ux.CreatureZoo.renderWeightChart'
+            }
           }
         },
         CreatureWeightLog => {
@@ -154,6 +159,16 @@ __PACKAGE__->config(
                 comment     => 'Quick-Recorded'
               })
             },
+          },
+          weight_chart => {
+            data_type => "varchar", 
+            is_nullable => 1, 
+            size => 255,
+            sql => join(' ',
+              'SELECT GROUP_CONCAT(recorded || "/" || weight_lbs) AS listing',
+              'FROM creature_weight_log',
+              'WHERE creature_id = self.id',
+            )
           }
         }
 

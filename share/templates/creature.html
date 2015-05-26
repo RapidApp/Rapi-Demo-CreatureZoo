@@ -47,18 +47,29 @@
       <td>{dob}</td>
     </tr>
 
-    <tr>
-      <th>Last Weight (lbs):</th>
+    <tr style="vertical-align:top;">
+      <th >
+        Weight History:
+      </th>
       <td>
-        <div>
-          <span>
-            [% r.autofield.last_weight %] lbs
-            ([% r.autofield.creature_weight_logs %])
-          </span>
+        <div class="detail" style="width:400px;padding-bottom:15px;">
+          
+          <div style="float:right;font-size:0.8em;width:200px;padding-left:10px;">
+            <b><i style="color:darkgreen">Quick Record:</i></b> [% r.autofield.quick_record_weight %]
+          </div>
+          
+          [% r.autofield.weight_chart %]
+          
+          <div style="padding-left:35px;">
+              [% r.autofield.creature_weight_logs %]
+          </div>
+          <div style="float:right;padding-right:5px;font-size:0.8em;">
+            <b>Last Weight:</b> [% r.autofield.last_weight %] lbs
+          </div>
+          
+          
         </div>
-        <div style="float:right;font-size:0.8em;width:200px;padding-left:10px;">
-          <b><i style="color:darkgreen">Quick Record:</i></b> [% r.autofield.quick_record_weight %]
-        </div>
+
       </td>
     </tr>
     
@@ -91,6 +102,7 @@
         </div>
       </td>
     </tr>
+    
     
   </table>
 
