@@ -5,7 +5,7 @@ use warnings;
 
 # ABSTRACT: RapidApp::Builder demo application
 
-use RapidApp 1.0401_08;
+use RapidApp 1.0401_10;
 
 use Moose;
 extends 'RapidApp::Builder';
@@ -25,15 +25,15 @@ our $VERSION = '0.001';
 has '+base_appname', default => sub { 'CreatureZoo::App' };
 has '+debug',        default => sub {1};
 
-sub _build_plugins {[
-  '+Rapi::Demo::CreatureZoo::Util::DemoPlug',
+sub _build_base_plugins {[
   'RapidApp::RapidDbic',
   'RapidApp::AuthCore',
   'RapidApp::NavCore',
   'RapidApp::CoreSchemaAdmin',
 ]}
 
-sub _build_config {
+
+sub _build_base_config {
   my $self = shift;
   
   my $tpl_dir = join('/',$self->share_dir,'templates');

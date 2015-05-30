@@ -1,4 +1,4 @@
-package Rapi::Demo::CreatureZoo::Util::DemoPlug;
+package Rapi::Demo::CreatureZoo::Util::Plugin::DemoAuthOvr;
 use Moose::Role;
 use namespace::autoclean;
 
