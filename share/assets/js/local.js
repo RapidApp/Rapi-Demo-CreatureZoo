@@ -6,11 +6,17 @@ Ext.ns('Ext.ux.CreatureZoo');
 
 Ext.ux.CreatureZoo.renderWeightChart = function(v) {
 
-  if(!v) {
-    return Ext.ux.showNull(v);
-  }
-
   var h = 150, w = 400;
+
+  if(!v) {
+    return [
+      '<div class="no-chart-data-wrap" style="line-height:',(h-40),'px;height:',h,'px;width:',w,'px;">',
+        '<div class="no-chart-data">',
+        '<span class="ra-null-val"><i>No weight history</i></span>',
+        '</div>',
+      '</div>'
+    ].join('');
+  }
 
   var labels = [], values = [];
   var pairs = v.split(',');

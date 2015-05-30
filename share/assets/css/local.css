@@ -81,3 +81,18 @@ div.weight-chart-wrap {
   max-width:100%;
   min-height:200px;
 }
+
+
+div.no-chart-data-wrap {  
+  position: relative;
+}
+
+div.no-chart-data {
+  position:absolute;
+  top: 15px; right: 15px; bottom: 15px; left: 15px;
+  border:1px solid #dddddd;
+  text-align: center;
+  color:grey;
+}
+
+
