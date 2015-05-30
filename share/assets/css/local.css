@@ -96,3 +96,8 @@ div.no-chart-data {
 }
 
 
+.shadow {
+  -webkit-box-shadow: 8px 6px 6px -6px #777;
+     -moz-box-shadow: 8px 6px 6px -6px #777;
+          box-shadow: 8px 6px 6px -6px #777;
+}
