@@ -10,6 +10,12 @@ div.creature-datasheet .img-cell {
   padding-right:15px;
 }
 
+div.creature-datasheet.page .img-cell {
+  max-width: 350px;
+  padding-right:15px;
+}
+
+
 
 /*
 div.creature-datasheet .img-cell > * {
@@ -28,7 +34,7 @@ div.creature-datasheet {
 
 .creature-datasheet table.top-table {
 	border: 1px solid #DDDDDD;
-	min-width: 600px;
+	/*min-width: 600px;*/
 }
 
 .creature-datasheet table.top-table > tbody > tr > td {
@@ -59,11 +65,12 @@ div.creature-datasheet {
 
 
 .creature-datasheet table.top-table.nest {
-   min-width: 300px;
+   width:100%;
    vertical-align: top;
 }
 .creature-datasheet table.top-table.nest > tbody > tr > th {
-	width:120px;
+	white-space:nowrap;
+	width:40%;
 }
 
 .creature-page-link {

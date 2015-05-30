@@ -5,23 +5,49 @@
 
 <title>[% Row.name %]</title>
 
-<div class="creature-datasheet">
+<div class="creature-datasheet page">
 
   <h4>Creature datasheet</h4>
   
   <table class="top-table">
+  
     <tr>
-      <th>Name:</th>
-      <td>[% r.autofield.name %] 
-      <i style="float:right;color:grey;">([% r.renderfield.species %])</i></td>
-    </tr>
-    <tr>
-      <td colspan=2 class="img-cell">
-
-        [% r.autofield.image %]
-
+      <td >
+        <div class="img-cell">
+          [% r.autofield.image %]
+          
+        </div>
+      </td>
+      <td style="vertical-align:top;">
+        <table class="top-table nest">
+          <tr>
+            <th>Name:</th>
+            <td>[% r.autofield.name %]</td>
+          </tr>
+          <tr>
+            <th>Species:</th>
+            <td>[% r.autofield.species %]</td>
+          </tr>
+          <tr>
+            <th>Date of Birth:</th>
+            <td>[% r.autofield.dob %]</td>
+          </tr>
+          <tr>
+            <th>Market value ?:</th>
+            <td>[% r.autofield.market_value %]</td>
+          </tr>
+          <tr>
+            <th>High-risk animal ?:</th>
+            <td>[% r.autofield.high_risk %]</td>
+          </tr>
+          <tr>
+            <th>Enclosure:</th>
+            <td>[% r.autofield.enclosure %]</td>
+          </tr>
+        </table>
       </td>
     </tr>
+  
       
     <tr>
       <td colspan=2>
@@ -32,20 +58,6 @@
       </td>
     </tr>
     
-    <tr>
-      <th>Species:</th>
-      <td>[% r.autofield.species %]</td>
-    </tr>
-
-    <tr>
-      <th>Date of Birth:</th>
-      <td>[% r.autofield.dob %]</td>
-    </tr>
-
-    <tr>
-      <th>DOB (raw column value, ro):</th>
-      <td>{dob}</td>
-    </tr>
 
     <tr style="vertical-align:top;">
       <th >
@@ -74,25 +86,6 @@
     </tr>
     
 
-    <tr>
-      <th>High-risk animal ?:</th>
-      <td>[% r.autofield.high_risk %]</td>
-    </tr>
-
-    <tr>
-      <th>Market value ?:</th>
-      <td>[% r.autofield.market_value %]</td>
-    </tr>
-
-    <tr>
-      <th>Other cool datapoint:</th>
-      <td>Other cool content</td>
-    </tr>
-
-    <tr>
-      <th>Enclosure:</th>
-      <td>[% r.autofield.enclosure %]</td>
-    </tr>
     
     <tr>
       <td colspan=2>
