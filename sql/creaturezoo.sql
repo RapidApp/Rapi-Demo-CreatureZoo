@@ -11,12 +11,26 @@
 ------------------------------------------------------------------
 
 
+DROP TABLE IF EXISTS [diet_type];
+CREATE TABLE [diet_type] (
+  [id]      INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+  [name]    varchar(32) NOT NULL,
+  [cls]     varchar(16) DEFAULT NULL,
+  [about]   text DEFAULT NULL
+);
+INSERT INTO [diet_type] ([name],[cls]) VALUES ('Herbivore','herbivore');
+INSERT INTO [diet_type] ([name],[cls]) VALUES ('Carnivore','carnivore');
+INSERT INTO [diet_type] ([name],[cls]) VALUES ('Omnivore','omnivore');
+
 DROP TABLE IF EXISTS [species];
 CREATE TABLE [species] (
-  [id]          INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
---[taxonomy_id] INTEGER NOT NULL,
-  [name]        varchar(32) NOT NULL,
-  [about]       varchar(255) DEFAULT NULL
+  [id]            INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+  [diet_type_id]  INTEGER NOT NULL,
+--[taxonomy_id]   INTEGER NOT NULL,
+  [name]          varchar(32) NOT NULL,
+  [about]         varchar(255) DEFAULT NULL,
+  FOREIGN KEY ([diet_type_id]) REFERENCES [diet_type] ([id]) 
+   ON DELETE CASCADE ON UPDATE CASCADE
 --,FOREIGN KEY ([taxonomy_id]) REFERENCES [taxonomy] ([id]) 
 --  ON DELETE CASCADE ON UPDATE CASCADE,
 );

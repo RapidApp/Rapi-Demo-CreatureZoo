@@ -32,7 +32,7 @@ __PACKAGE__->config(
             destroyable_relspec => ['*']
          }, # ('*defaults')
          Creature => {
-            include_colspec => ['*','species.*']
+            include_colspec => ['*','species.*','species.diet_type.cls']
          },
          CreatureWeightLog => {
             include_colspec => ['*','*.*']
@@ -91,6 +91,21 @@ __PACKAGE__->config(
             creature     => { header => 'Creature' },
           }
         },
+        DietType => {
+          display_column => 'name',
+          auto_editor_type => 'combo',
+          title => 'Diet Type',
+          title_multi => 'Diet Types',
+          #iconCls => '',
+          #multiIconCls => '',
+          columns => {
+            id     => { header => 'Id', width => 45, hidden => 1 },
+            name   => { header => 'Name', width => 110 },
+            cls    => { header => 'Cls (CSS)', width => 100 },
+            about  => { header => 'About', width => 300, profiles => ['html'], hidden => 1 }
+          }
+        
+        },
         Enclosure => {
           auto_editor_type => 'combo',
           display_column => 'name',
@@ -128,10 +143,12 @@ __PACKAGE__->config(
           iconCls => 'icon-panda',
           multiIconCls => 'icon-panda',
           columns => {
-            id         => { header => 'Id', width => 45  },
-            name       => { header => 'Name', width => 110  },
-            about      => { header => 'About', width => 350, hidden => 1, profiles => ['html']  },
-            creatures  => { header => 'Creatures' }
+            id           => { header => 'Id', width => 45  },
+            name         => { header => 'Name', width => 110  },
+            about        => { header => 'About', width => 350, hidden => 1, profiles => ['html']  },
+            diet_type_id => { profiles => ['hidden'] },
+            diet_type    => { header => 'Diet Type', width => 110 },
+            creatures    => { header => 'Creatures' }
           }
         },
       }, # (TableSpecs)
