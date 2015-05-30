@@ -12,7 +12,7 @@ use lib "$FindBin::Bin/../lib";
 my $approot = "$FindBin::Bin/..";
 my $applib = "$approot/lib";
 my $ddl = "$approot/sql/creaturezoo.sql";
-my $sqlt = "$approot/creaturezoo.db";
+my $sqlt = "$approot/creaturezoo_data/creaturezoo.db";
 
 my $model_class = 'Rapi::Demo::CreatureZoo::Model::DB';
 Module::Runtime::require_module($model_class);

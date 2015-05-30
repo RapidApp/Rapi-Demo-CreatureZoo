@@ -20,7 +20,9 @@ __PACKAGE__->add_columns(
   { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
   "name",
   { data_type => "varchar", is_nullable => 0, size => 32 },
-  "image_html",
+  "image",
+  { data_type => "text", default_value => \"null", is_nullable => 1 },
+  "attachment",
   { data_type => "text", default_value => \"null", is_nullable => 1 },
   "dob",
   { data_type => "date", is_nullable => 0 },
@@ -64,8 +66,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07040 @ 2015-05-12 11:55:13
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Ov6srJBfOuCALmgoM4taiw
+# Created by DBIx::Class::Schema::Loader v0.07042 @ 2015-05-30 09:23:26
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:2TpYS5T37QKEVNwZ6iC0Jw
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
