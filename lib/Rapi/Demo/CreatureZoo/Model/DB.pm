@@ -72,7 +72,8 @@ __PACKAGE__->config(
               header => 'Weight History [Line Chart]', 
               width => 420, hidden => 1, sortable => 0,
               renderer => 'Ext.ux.CreatureZoo.renderWeightChart'
-            }
+            },
+            age_years => { header => 'Age (years)', width => 80 }
           }
         },
         CreatureWeightLog => {
@@ -169,6 +170,15 @@ __PACKAGE__->config(
               'SELECT GROUP_CONCAT(recorded || "/" || weight_lbs) AS listing',
               'FROM creature_weight_log',
               'WHERE creature_id = self.id',
+            )
+          },
+          age_years => {
+            data_type => "integer", 
+            is_nullable => 0, 
+            size => 255,
+            sql => join(' ',
+              # this is like "floor"
+              "SELECT cast(((julianday('now') - julianday(self.dob))/365) as int)",
             )
           }
         }
