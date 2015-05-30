@@ -26,6 +26,7 @@ has '+base_appname', default => sub { 'CreatureZoo::App' };
 has '+debug',        default => sub {1};
 
 sub _build_plugins {[
+  '+Rapi::Demo::CreatureZoo::Util::DemoPlug',
   'RapidApp::RapidDbic',
   'RapidApp::AuthCore',
   'RapidApp::NavCore',
