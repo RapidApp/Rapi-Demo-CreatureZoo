@@ -10,7 +10,7 @@
   <h4>Creature datasheet</h4>
   
   <table class="top-table">
-  
+    <tr></tr>
     <tr>
       <td >
         <div class="img-cell">
@@ -49,23 +49,17 @@
     </tr>
   
       
-    <tr>
-      <td colspan=2>
+    <tr style="vertical-align:top;">
+      <td >
         <b>Details &ndash; <i>{name}</i></b>
         <div class="detail">
           [% r.autofield.detail %]
         </div>
       </td>
-    </tr>
-    
-
-    <tr style="vertical-align:top;">
-      <th >
-        Weight History:
-      </th>
       <td>
+        
         <div class="detail" style="width:400px;padding-bottom:15px;">
-          
+          <div style="padding-left:10px;"><b>Weight History:</b></div>
           <div style="float:right;font-size:0.8em;width:200px;padding-left:10px;">
             <b><i style="color:darkgreen">Quick Record:</i></b> [% r.autofield.quick_record_weight %]
           </div>
