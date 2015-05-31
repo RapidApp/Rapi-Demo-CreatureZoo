@@ -8,6 +8,12 @@ use Moo;
 
 extends 'RapidApp::Template::Access';
 
+my $tpl_regex = '^stuff/';
+
+has '+writable_regex',  default => sub { $tpl_regex };
+has '+creatable_regex', default => sub { $tpl_regex };
+has '+deletable_regex', default => sub { $tpl_regex };
+
 around 'get_template_vars' => sub {
   my ($orig,$self,@args) = @_;
   

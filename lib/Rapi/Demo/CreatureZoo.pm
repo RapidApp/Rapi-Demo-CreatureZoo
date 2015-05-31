@@ -53,6 +53,11 @@ sub _build_base_config {
     dir($dir)->mkpath
   }
   
+  unless(-d (my $dir = $self->local_template_dir)) {
+    print STDERR "Creating local template dir '$dir'\n" if ($self->debug);
+    dir($dir)->mkpath
+  }
+  
   $self->_init_cas unless (-d $self->cas_store_dir);
   
   return {
@@ -69,13 +74,13 @@ sub _build_base_config {
     'Plugin::RapidApp::TabGui' => {
       title              => 'Creature Zoo Intranet',
       right_footer       => join('',(ref $self),' v',$VERSION),
-      nav_title_iconcls => 'icon-panda',
-      #navtree_init_width => 210,
+      nav_title_iconcls  => 'icon-panda',
+      navtree_init_width => 195,
       banner_template => file($tpl_dir,'banner.html')->stringify,
       dashboard_url => '/tple/dashboard',
     },
     'Controller::RapidApp::Template' => {
-      include_paths => [ $tpl_dir ],
+      include_paths => [ $self->local_template_dir, $tpl_dir ],
       default_template_extension => 'html',
       access_class  => 'Rapi::Demo::CreatureZoo::Template::Access',
     },
@@ -116,8 +121,12 @@ has 'coreschema_db', is => 'ro', isa => Str, lazy => 1, default => sub {
 
 has 'cas_store_dir', is => 'ro', isa => Str, lazy => 1, default => sub {
   my $self = shift;
-  # Default to the cwd
   dir( $self->data_dir, 'cas_store' )->stringify
+};
+
+has 'local_template_dir', is => 'ro', isa => Str, lazy => 1, default => sub {
+  my $self = shift;
+  dir( $self->data_dir, 'templates' )->stringify
 };
 
 
