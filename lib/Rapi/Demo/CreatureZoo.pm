@@ -75,7 +75,8 @@ sub _build_base_config {
       dashboard_url => '/tple/dashboard.md',
     },
     'Controller::RapidApp::Template' => {
-      include_paths => [ $tpl_dir ]
+      include_paths => [ $tpl_dir ],
+      access_class  => 'Rapi::Demo::CreatureZoo::Template::Access',
     },
     'Controller::SimpleCAS' => {
       store_path	=> $self->cas_store_dir

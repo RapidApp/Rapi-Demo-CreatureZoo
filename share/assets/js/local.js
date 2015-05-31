@@ -60,3 +60,39 @@ Ext.ux.CreatureZoo.renderWeightChart = function(v) {
   render_chart.defer(100,this,[id,data]);
   return['<canvas width="',w,'" height="',h,'" id="',id,'" class="weight-chart"></canvas>'].join('');
 }
+
+
+
+Ext.ux.CreatureZoo.imgRenderSpeciesBarChart = function(sData) {
+
+  // We expect 'this' scope to be an <img> within the target <canvas> element
+  var canvas = this.parentElement;
+  
+  if(canvas && canvas.tagName && canvas.tagName.toLowerCase() == 'canvas') {
+  
+    var labels = [], values = [];
+    Ext.each(sData,function(itm){
+      labels.push(itm.name);
+      values.push(itm.creatures);
+    },this);
+  
+    var options = {};
+    var data = {
+        labels: labels,
+        datasets: [
+            {
+                label: "SpeciesCounts",
+                fillColor: "rgba(151,187,205,0.5)",
+                strokeColor: "rgba(151,187,205,0.8)",
+                highlightFill: "rgba(151,187,205,0.75)",
+                highlightStroke: "rgba(151,187,205,1)",
+                data: values
+            }
+        ]
+    };
+  
+    var ctx = canvas.getContext("2d");
+    var myBarChart = new Chart(ctx).Bar(data,options);
+  }
+
+};
