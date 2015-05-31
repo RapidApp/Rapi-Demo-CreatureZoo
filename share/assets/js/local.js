@@ -1,8 +1,7 @@
 /* Optional app-specific JavaScript goes here */
 
-Ext.ns('RA.ux.cZoo');
-
-
+// Initialize namespace for our own use:
+RA.ux.cZoo = {};
 
 RA.ux.cZoo.renderWeightChart = function(v) {
 
