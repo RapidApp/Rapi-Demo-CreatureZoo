@@ -18,11 +18,26 @@
 
    
 <div style="float:right;">
-  <canvas height="250" width="400">
-    <!-- here we're using an <img> tag so we can hijack its onload event -->
-    <img 
-      src="[% c.mount_url %]/assets/rapidapp/misc/static/s.gif" 
-      onload='RA.ux.cZoo.imgRenderSpeciesBarChart.call(this,[% species_chart_data_json %])' 
-    >
-  </canvas>
+  <div>
+    <div>By Species:</div>
+    <canvas height="250" width="400">
+      <!-- here we're using an <img> tag so we can hijack its onload event -->
+      <img 
+        src="[% c.mount_url %]/assets/rapidapp/misc/static/s.gif" 
+        onload='RA.ux.cZoo.imgRenderSpeciesBarChart.call(this,[% species_chart_data_json %])' 
+      >
+    </canvas>
+  </div>
+  
+  <div>
+    <div>By Diet:</div>
+    <canvas height="175" width="275">
+      <!-- here we're using an <img> tag so we can hijack its onload event -->
+      <img 
+        src="[% c.mount_url %]/assets/rapidapp/misc/static/s.gif" 
+        onload='RA.ux.cZoo.imgRenderDietTypePieChart.call(this,[% diet_type_data %])' 
+      >
+    </canvas>
+  </div>
+  
 </div>

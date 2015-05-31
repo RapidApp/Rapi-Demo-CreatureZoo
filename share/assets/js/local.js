@@ -98,15 +98,100 @@ RA.ux.cZoo.imgRenderSpeciesBarChart = function(sData) {
       var activeBars = myBarChart.getBarsAtEvent(evt);
       if(activeBars.length == 1) {
         var itm = itmMap[activeBars[0].label];
-        var url = [
-          Ext.ux.RapidApp.AJAX_URL_PREFIX || '', //<-- in case we're mounted somewhere
-          '/main/db/db_species/item/',itm.id
-          //,'/rel/creatures' //<-- if we wanted to link directly to the creature list
-        ].join('');
+        if(itm && itm.id) {
+          var url = [
+            Ext.ux.RapidApp.AJAX_URL_PREFIX || '', //<-- in case we're mounted somewhere
+            '/main/db/db_species/item/',itm.id
+            //,'/rel/creatures' //<-- if we wanted to link directly to the creature list
+          ].join('');
 
-        // perform the nav via hashpath:
-        window.location.hash = '#!' + url;
+          // perform the nav via hashpath:
+          window.location.hash = '#!' + url;
+        }
       }
     };
   }
 };
+
+
+RA.ux.cZoo.imgRenderDietTypePieChart = function(dtData) {
+
+  // We expect 'this' scope to be an <img> within the target <canvas> element
+  var canvas = this.parentElement;
+  
+  if(canvas && canvas.tagName && canvas.tagName.toLowerCase() == 'canvas') {
+  
+    var options = {}, data = [];
+    if(dtData["Carnivore"]) {
+      var itm = dtData["Carnivore"];
+      if(itm.creature_count && itm.creature_count > 0) {
+        data.push({
+          label      : itm.name,
+          value      : itm.creature_count,
+          color      : "#F7464A",
+          highlight  : "#FF5A5E"
+        });
+      }
+    }
+    
+    if(dtData["Herbivore"]) {
+      var itm = dtData["Herbivore"];
+      if(itm.creature_count && itm.creature_count > 0) {
+        data.push({
+          label      : itm.name,
+          value      : itm.creature_count,
+          color      : "#46BFBD",
+          highlight  : "#5AD3D1"
+        });
+      }
+    }
+    
+    if(dtData["Omnivore"]) {
+      var itm = dtData["Omnivore"];
+      if(itm.creature_count && itm.creature_count > 0) {
+        data.push({
+          label      : itm.name,
+          value      : itm.creature_count,
+          color      : "#FDB45C",
+          highlight  : "#FFC870"
+        });
+      }
+    }
+    
+    var ctx = canvas.getContext("2d");
+    var myPieChart = new Chart(ctx).Pie(data,options);
+    
+    // These use the same format, and thus can be drop-in replacements:
+    //var myPieChart = new Chart(ctx).Doughnut(data,options);
+    //var myPieChart = new Chart(ctx).PolarArea(data,options);
+    
+    canvas.onclick = function(evt) {
+      var activePoints = myPieChart.getSegmentsAtEvent(evt);
+      if(activePoints.length == 1) {
+        var name = activePoints[0].label;
+        if(name) {
+          // This is a demonstration of the query string
+          // capability of the Grid Quick Search:
+          var query_string = [
+            'quick_search_mode=exact',
+            'quick_search_cols=species__diet_type',
+            'quick_search=' + name
+          ].join('&');
+          
+          var url = [
+            Ext.ux.RapidApp.AJAX_URL_PREFIX || '', //<-- in case we're mounted somewhere
+            '/main/db/db_creature?',query_string
+          ].join('');
+          
+          // perform the nav via hashpath:
+          window.location.hash = '#!' + url;
+        }
+      }
+    };
+  }
+};
+
+
+
+
+
