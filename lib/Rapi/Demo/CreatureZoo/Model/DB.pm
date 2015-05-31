@@ -85,10 +85,10 @@ __PACKAGE__->config(
           columns => {
             id           => { header => 'Id', width => 45 },
             creature_id  => { profiles => ['hidden'] },
-            recorded     => { header => 'Recorded' },
-            weight_lbs   => { header => 'Weight (lbs)' },
-            comment      => { header => 'Comments' },
-            creature     => { header => 'Creature' },
+            recorded     => { header => 'Recorded', width => 140 },
+            weight_lbs   => { header => 'Weight (lbs)', width => 100 },
+            comment      => { header => 'Comments', width => 175 },
+            creature     => { header => 'Creature', width => 140 },
           }
         },
         DietType => {
@@ -125,6 +125,7 @@ __PACKAGE__->config(
             open_top            => { header => 'Open Top?',   },
             detail              => { hidden => 1, header => 'Details',   },
             enclosure_class     => { header => 'Enclosure Class',   },
+            creatures           => { header => 'Creatures' }
           }
         },
         EnclosureClass => {
@@ -135,7 +136,8 @@ __PACKAGE__->config(
           multiIconCls => 'icon-enc-classes',
           columns => {
             id             => { header => 'Id'  },
-            classification => { header => 'Classification' }
+            classification => { header => 'Classification' },
+            enclosures     => { header => 'Enclosures' }
           }
         },
         Species => {
@@ -146,7 +148,9 @@ __PACKAGE__->config(
           multiIconCls => 'icon-panda',
           columns => {
             id           => { header => 'Id', width => 45  },
-            name         => { header => 'Name', width => 110  },
+            name         => { header => 'Name', width => 160  },
+            ideal_wt_lbs => { header => 'Ideal Wt (lbs)', width => 90 },
+            min_sq_ft    => { header => 'Min Sq Feet', width => 85 },
             about        => { header => 'About', width => 350, hidden => 1, profiles => ['html']  },
             diet_type_id => { profiles => ['hidden'] },
             diet_type    => { header => 'Diet Type', width => 110 },

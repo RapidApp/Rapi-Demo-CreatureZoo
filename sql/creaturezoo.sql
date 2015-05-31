@@ -1,16 +1,4 @@
 
-------------------------------------------------------------------
--- TODO: tie into some imported 3rd-part scpecies taxonomy db...
---
--- DROP TABLE IF EXISTS [taxonomy];
--- CREATE TABLE [taxonomy] (
---   [id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
---    
---       ...
--- );
-------------------------------------------------------------------
-
-
 DROP TABLE IF EXISTS [diet_type];
 CREATE TABLE [diet_type] (
   [id]      INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
@@ -26,13 +14,12 @@ DROP TABLE IF EXISTS [species];
 CREATE TABLE [species] (
   [id]            INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
   [diet_type_id]  INTEGER NOT NULL,
---[taxonomy_id]   INTEGER NOT NULL,
-  [name]          varchar(32) NOT NULL,
-  [about]         varchar(255) DEFAULT NULL,
+  [name]          varchar(32) UNIQUE NOT NULL,
+  [ideal_wt_lbs]  decimal(6,2) DEFAULT NULL,
+  [min_sq_ft]     decimal(8,2) DEFAULT NULL,
+  [about]         text DEFAULT NULL,
   FOREIGN KEY ([diet_type_id]) REFERENCES [diet_type] ([id]) 
    ON DELETE CASCADE ON UPDATE CASCADE
---,FOREIGN KEY ([taxonomy_id]) REFERENCES [taxonomy] ([id]) 
---  ON DELETE CASCADE ON UPDATE CASCADE,
 );
 
 DROP TABLE IF EXISTS [enclosure_class];
@@ -40,7 +27,6 @@ CREATE TABLE [enclosure_class] (
   [id]             INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
   [classification] varchar(32) UNIQUE NOT NULL
 );
-
 
 DROP TABLE IF EXISTS [enclosure];
 CREATE TABLE [enclosure] (
@@ -55,7 +41,6 @@ CREATE TABLE [enclosure] (
   FOREIGN KEY ([enclosure_class_id]) REFERENCES [enclosure_class] ([id]) 
    ON DELETE CASCADE ON UPDATE CASCADE
 );
-
 
 DROP TABLE IF EXISTS [creature];
 CREATE TABLE [creature] (
@@ -74,7 +59,6 @@ CREATE TABLE [creature] (
   FOREIGN KEY ([enclosure_id]) REFERENCES [enclosure] ([id]) 
    ON DELETE CASCADE ON UPDATE CASCADE
 );
-
 
 DROP TABLE IF EXISTS [creature_weight_log];
 CREATE TABLE [creature_weight_log] (

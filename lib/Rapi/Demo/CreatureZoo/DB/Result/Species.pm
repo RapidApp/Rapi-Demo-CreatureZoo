@@ -20,15 +20,25 @@ __PACKAGE__->add_columns(
   { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
   "name",
   { data_type => "varchar", is_nullable => 0, size => 32 },
-  "about",
+  "ideal_wt_lbs",
   {
-    data_type => "varchar",
+    data_type => "decimal",
     default_value => \"null",
     is_nullable => 1,
-    size => 255,
+    size => [6, 2],
   },
+  "min_sq_ft",
+  {
+    data_type => "decimal",
+    default_value => \"null",
+    is_nullable => 1,
+    size => [8, 2],
+  },
+  "about",
+  { data_type => "text", default_value => \"null", is_nullable => 1 },
 );
 __PACKAGE__->set_primary_key("id");
+__PACKAGE__->add_unique_constraint("name_unique", ["name"]);
 __PACKAGE__->has_many(
   "creatures",
   "Rapi::Demo::CreatureZoo::DB::Result::Creature",
@@ -43,8 +53,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07042 @ 2015-05-30 18:47:39
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ru+VHKcrBqZxr5whThYlcQ
+# Created by DBIx::Class::Schema::Loader v0.07042 @ 2015-05-31 19:17:43
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:p9F+F0QKQ782vO1RpKf0qw
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
