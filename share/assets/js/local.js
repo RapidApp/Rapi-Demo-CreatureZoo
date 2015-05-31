@@ -1,10 +1,10 @@
 /* Optional app-specific JavaScript goes here */
 
-Ext.ns('Ext.ux.CreatureZoo');
+Ext.ns('RA.ux.cZoo');
 
 
 
-Ext.ux.CreatureZoo.renderWeightChart = function(v) {
+RA.ux.cZoo.renderWeightChart = function(v) {
 
   var h = 150, w = 400;
 
@@ -63,7 +63,7 @@ Ext.ux.CreatureZoo.renderWeightChart = function(v) {
 
 
 
-Ext.ux.CreatureZoo.imgRenderSpeciesBarChart = function(sData) {
+RA.ux.cZoo.imgRenderSpeciesBarChart = function(sData) {
 
   // We expect 'this' scope to be an <img> within the target <canvas> element
   var canvas = this.parentElement;

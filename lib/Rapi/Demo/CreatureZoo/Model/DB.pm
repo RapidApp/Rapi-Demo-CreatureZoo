@@ -71,7 +71,7 @@ __PACKAGE__->config(
             weight_chart => {
               header => 'Weight History [Line Chart]', 
               width => 420, hidden => 1, sortable => 0,
-              renderer => 'Ext.ux.CreatureZoo.renderWeightChart'
+              renderer => 'RA.ux.cZoo.renderWeightChart'
             },
             age_years => { header => 'Age (years)', width => 80 }
           }
