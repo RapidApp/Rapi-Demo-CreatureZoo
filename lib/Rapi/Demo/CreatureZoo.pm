@@ -32,37 +32,14 @@ sub _build_base_plugins {[
   'RapidApp::CoreSchemaAdmin',
 ]}
 
-
 sub _build_base_config {
   my $self = shift;
   
-  my $tpl_dir = join('/',$self->share_dir,'templates');
-  -d $tpl_dir or die join('',
-    "template dir ($tpl_dir) not found; ", 
-    __PACKAGE__, " may not be installed properly.\n"
-  );
-  
-  my $loc_assets_dir = join('/',$self->share_dir,'assets');
-  -d $loc_assets_dir or die join('',
-    "assets dir ($loc_assets_dir) not found; ", 
-    __PACKAGE__, " may not be installed properly.\n"
-  );
-  
-  unless(-d (my $dir = $self->data_dir)) {
-    print STDERR "Initializing local data_dir '$dir'\n" if ($self->debug);
-    dir($dir)->mkpath
-  }
-  
-  unless(-d (my $dir = $self->local_template_dir)) {
-    print STDERR "Creating local template dir '$dir'\n" if ($self->debug);
-    dir($dir)->mkpath
-  }
-  
-  $self->_init_cas unless (-d $self->cas_store_dir);
-  
+  $self->_init_data_dir;
+
   return {
     'RapidApp' => {
-      local_assets_dir => $loc_assets_dir,
+      local_assets_dir => $self->_assets_dir,
       load_modules => {
         creatures     => 'Rapi::Demo::CreatureZoo::Module::CreatureDV',
         creature_grid => 'Rapi::Demo::CreatureZoo::Module::CreatureGrid'
@@ -76,11 +53,11 @@ sub _build_base_config {
       right_footer       => join('',(ref $self),' v',$VERSION),
       nav_title_iconcls  => 'icon-panda',
       navtree_init_width => 195,
-      banner_template => file($tpl_dir,'banner.html')->stringify,
-      dashboard_url => '/tple/dashboard',
+      banner_template    => file($self->_tpl_dir,'banner.html')->stringify,
+      dashboard_url      => '/tple/dashboard',
     },
     'Controller::RapidApp::Template' => {
-      include_paths => [ $self->local_template_dir, $tpl_dir ],
+      include_paths => $self->_template_include_paths,
       default_template_extension => 'html',
       access_class  => 'Rapi::Demo::CreatureZoo::Template::Access',
     },
@@ -108,7 +85,6 @@ has 'data_dir', is => 'ro', isa => Str, lazy => 1, default => sub {
   dir( cwd(), 'creaturezoo_data')->stringify;
 };
 
-
 has 'creaturezoo_db', is => 'ro', isa => Str, lazy => 1, default => sub {
   my $self = shift;
   file( $self->data_dir, 'creaturezoo.db' )->stringify
@@ -129,6 +105,39 @@ has 'local_template_dir', is => 'ro', isa => Str, lazy => 1, default => sub {
   dir( $self->data_dir, 'templates' )->stringify
 };
 
+
+has '_template_include_paths', is => 'ro', lazy => 1, default => sub {
+  my $self = shift;
+  
+  # overlay local, writable templates with installed, 
+  # read-only templates installed in the share dir
+  return [ $self->local_template_dir, $self->_tpl_dir ];
+}, isa => ArrayRef[Str];
+
+
+has '_assets_dir', is => 'ro', lazy => 1, default => sub {
+  my $self = shift;
+  
+  my $loc_assets_dir = join('/',$self->share_dir,'assets');
+  -d $loc_assets_dir or die join('',
+    "assets dir ($loc_assets_dir) not found; ", 
+    __PACKAGE__, " may not be installed properly.\n"
+  );
+  
+  return $loc_assets_dir;
+}, isa => Str;
+
+has '_tpl_dir', is => 'ro', lazy => 1, default => sub {
+  my $self = shift;
+  
+  my $tpl_dir = join('/',$self->share_dir,'templates');
+  -d $tpl_dir or die join('',
+    "template dir ($tpl_dir) not found; ", 
+    __PACKAGE__, " may not be installed properly.\n"
+  );
+  
+  return $tpl_dir;
+}, isa => Str;
 
 has '_init_cas_store_dir', is => 'ro', isa => Str, lazy => 1, default => sub {
   my $self = shift;
@@ -159,6 +168,23 @@ after 'bootstrap' => sub {
   $c->model('DB')->_auto_deploy_schema
 };
 
+
+sub _init_data_dir {
+  my $self = shift;
+
+  unless(-d (my $dir = $self->data_dir)) {
+    print STDERR "Initializing local data_dir '$dir'\n" if ($self->debug);
+    dir($dir)->mkpath
+  }
+  
+  unless(-d (my $dir = $self->local_template_dir)) {
+    print STDERR "Creating local template dir '$dir'\n" if ($self->debug);
+    dir($dir)->mkpath
+  }
+  
+  $self->_init_cas unless (-d $self->cas_store_dir);
+
+}
 
 
 sub _init_cas {
