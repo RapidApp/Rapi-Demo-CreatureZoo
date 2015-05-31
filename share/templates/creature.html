@@ -86,16 +86,19 @@
     
     <tr>
       <td colspan=2>
-        <b>Species info</b>
-        <div class="detail">
-          [% r.autofield.species__about %]
+        <div style="float:left">
+          <b>Species info</b>
+          <div class="detail">
+            [% r.autofield.species__about %]
+          </div>
+        </div>
+        <div style="float:right" class="diet_type_badge_wrap">
+          <div class="diet_type_badge {species__diet_type__cls}">
+            <span class="title">Diet Type</span>
+          </div>
+          [% r.autofield.species__diet_type %]
         </div>
       </td>
-    </tr>
-    
-    <tr>
-      <th>Diet Type:</th>
-      <td>[% r.autofield.species__diet_type %] ({species__diet_type__cls})</td>
     </tr>
     
     
