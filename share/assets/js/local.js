@@ -69,10 +69,11 @@ RA.ux.cZoo.imgRenderSpeciesBarChart = function(sData) {
   
   if(canvas && canvas.tagName && canvas.tagName.toLowerCase() == 'canvas') {
   
-    var labels = [], values = [];
+    var labels = [], values = [], itmMap = {};
     Ext.each(sData,function(itm){
       labels.push(itm.name);
       values.push(itm.creatures);
+      itmMap[itm.name] = itm;
     },this);
   
     var options = {};
@@ -92,6 +93,20 @@ RA.ux.cZoo.imgRenderSpeciesBarChart = function(sData) {
   
     var ctx = canvas.getContext("2d");
     var myBarChart = new Chart(ctx).Bar(data,options);
-  }
 
+    canvas.onclick = function(evt) {
+      var activeBars = myBarChart.getBarsAtEvent(evt);
+      if(activeBars.length == 1) {
+        var itm = itmMap[activeBars[0].label];
+        var url = [
+          Ext.ux.RapidApp.AJAX_URL_PREFIX || '', //<-- in case we're mounted somewhere
+          '/main/db/db_species/item/',itm.id
+          //,'/rel/creatures' //<-- if we wanted to link directly to the creature list
+        ].join('');
+
+        // perform the nav via hashpath:
+        window.location.hash = '#!' + url;
+      }
+    };
+  }
 };
