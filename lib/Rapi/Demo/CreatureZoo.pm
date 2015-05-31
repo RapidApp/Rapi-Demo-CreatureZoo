@@ -72,10 +72,11 @@ sub _build_base_config {
       nav_title_iconcls => 'icon-panda',
       #navtree_init_width => 210,
       banner_template => file($tpl_dir,'banner.html')->stringify,
-      dashboard_url => '/tple/dashboard.md',
+      dashboard_url => '/tple/dashboard',
     },
     'Controller::RapidApp::Template' => {
       include_paths => [ $tpl_dir ],
+      default_template_extension => 'html',
       access_class  => 'Rapi::Demo::CreatureZoo::Template::Access',
     },
     'Controller::SimpleCAS' => {
