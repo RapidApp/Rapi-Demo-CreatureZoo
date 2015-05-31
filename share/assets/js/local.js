@@ -158,6 +158,21 @@ RA.ux.cZoo.imgRenderDietTypePieChart = function(dtData) {
       }
     }
     
+    // This legend is mostly the same of the default supplied by Chart.js
+    options.legendTemplate = [
+      "<ul style=\"list-style-type:none;\" class=\"<%=name.toLowerCase()%>-legend\">",
+        "<% for (var i=0; i<segments.length; i++){%>",
+          "<li>",
+            "<span style=\"background-color:<%=segments[i].fillColor%>\">",
+              "&nbsp;&nbsp;&nbsp;&nbsp;",
+            "</span>&nbsp;&nbsp;",
+            "<%if(segments[i].label){%><%=segments[i].label%><%}%>",
+          "</li>",
+        "<%}%>",
+      "</ul>"
+    ].join('');
+
+    
     var ctx = canvas.getContext("2d");
     var myPieChart = new Chart(ctx).Pie(data,options);
     
@@ -165,6 +180,13 @@ RA.ux.cZoo.imgRenderDietTypePieChart = function(dtData) {
     //var myPieChart = new Chart(ctx).Doughnut(data,options);
     //var myPieChart = new Chart(ctx).PolarArea(data,options);
     
+    // quick and dirty legend -- these sizings are designed to work with 
+    // the dashboard template
+    var legendDiv = document.createElement("div");
+    legendDiv.style = "float:right;width:185px;padding-top:25px;";
+    legendDiv.innerHTML = myPieChart.generateLegend();
+    canvas.parentElement.appendChild(legendDiv);
+
     canvas.onclick = function(evt) {
       var activePoints = myPieChart.getSegmentsAtEvent(evt);
       if(activePoints.length == 1) {
