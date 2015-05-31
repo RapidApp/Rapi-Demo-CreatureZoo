@@ -102,7 +102,9 @@ __PACKAGE__->config(
             id     => { header => 'Id', width => 45, hidden => 1 },
             name   => { header => 'Name', width => 110 },
             cls    => { header => 'Cls (CSS)', width => 100 },
-            about  => { header => 'About', width => 300, profiles => ['html'], hidden => 1 }
+            about  => { header => 'About', width => 300, profiles => ['html'], hidden => 1 },
+            creature_count => { header => "# Creatures", width => 85 },
+            species => { header => "Species", width => 150 }
           }
         
         },
@@ -196,6 +198,21 @@ __PACKAGE__->config(
             sql => join(' ',
               # this is like "floor"
               "SELECT cast(((julianday('now') - julianday(self.dob))/365) as int)",
+            )
+          }
+        },
+        DietType => {
+          # We could have created a multi-level has_many for this, but that could hit
+          # the db a lot harder, and we don't need a full-blown rel to join, etc, we
+          # just want to get the count so we can use it for the dashboard pie chart
+          creature_count => {
+            data_type => "integer", 
+            is_nullable => 0, 
+            size => 255,
+            sql => join(' ',
+              "SELECT COUNT(*) FROM creature",
+              "JOIN species ON species.id = creature.species_id",
+              "WHERE species.diet_type_id = self.id"
             )
           }
         }
