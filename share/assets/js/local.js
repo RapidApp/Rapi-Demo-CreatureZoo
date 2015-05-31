@@ -27,35 +27,27 @@ Ext.ux.CreatureZoo.renderWeightChart = function(v) {
     values.push(parts[1]);
   },this);
   
-
   var options = {};
-  
-  
   var data = {
-      //labels: ["January", "February", "March", "April", "May", "June", "July"],
       labels: labels,
       datasets: [
           {
               label: "Weight History",
-              fillColor: "rgba(220,220,220,0.2)",
-              strokeColor: "rgba(220,220,220,1)",
-              pointColor: "rgba(220,220,220,1)",
+              // ---
+              // Blue:
+              //fillColor: "rgba(151,187,205,0.2)",
+              //strokeColor: "rgba(151,187,205,1)",
+              //pointColor: "rgba(151,187,205,1)",
+              // Red:
+              fillColor   : "rgba(204,0,0,0.2)",
+              strokeColor : "rgba(204,0,0,1)",
+              pointColor  : "rgba(204,0,0,1)",
+              // ---
               pointStrokeColor: "#fff",
               pointHighlightFill: "#fff",
-              pointHighlightStroke: "rgba(220,220,220,1)",
-              //data: [65, 59, 80, 81, 56, 55, 40]
+              pointHighlightStroke: "rgba(151,187,205,1)",
               data: values
-          },
-          //{
-          //    label: "My Second dataset",
-          //    fillColor: "rgba(151,187,205,0.2)",
-          //    strokeColor: "rgba(151,187,205,1)",
-          //    pointColor: "rgba(151,187,205,1)",
-          //    pointStrokeColor: "#fff",
-          //    pointHighlightFill: "#fff",
-          //    pointHighlightStroke: "rgba(151,187,205,1)",
-          //    data: [28, 48, 40, 19, 86, 27, 90]
-          //}
+          }
       ]
   };  
     
