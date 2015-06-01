@@ -6,7 +6,133 @@
 <title>[% Row.name %]</title>
 <style>
 
+html {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
 
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+html,
+body{
+  width:100%;
+  height:100%;
+}
+
+/*  Every CSS rule with !important have to be changed
+ *  in local.css.
+ *  This is only here to overwrite the original CSS
+ *  rule!
+ */
+
+.x-panel-body{
+	background-color:#E7E9EC;
+}
+
+.creature-datasheet{
+	background-color:#E7E9EC !important;
+	padding:10px
+}
+
+.creature-datas-title{
+	padding:20px;
+	background-color:#FFFFFF;
+	box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15),
+			-1px 0px 0px rgba(0, 0, 0, 0.03),
+			1px 0px 0px rgba(0, 0, 0, 0.03),
+			0px 1px 0px rgba(0, 0, 0, 0.12);
+	margin-bottom:20px;
+	text-transform: uppercase;
+}
+
+.top-table{
+	border:none !important;
+	width:100%
+}
+
+.top-table .top-table{
+	border:1px solid #eee !important;
+}
+
+.creature-datasheet table.top-table > tbody > tr{
+	background-color:#E7E9EC !important;
+}
+
+.creature-datasheet .top-table .top-table > tbody > tr{
+	background-color:#FFFFFF !important;
+}
+
+div.appdv-tt-generated.blk .appdv-edit-field.inln {
+	margin-right: 0px !important;
+}
+
+.creature-datasheet table.top-table > tbody > tr > td {
+	padding: 0px 0px 20px 0px !important;
+}
+
+.speciesinfos,
+.detail,
+.nest,
+.img-cell{
+	background-color:#FFFFFF;
+	box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15),
+		    -1px 0px 0px rgba(0, 0, 0, 0.03),
+		    1px 0px 0px rgba(0, 0, 0, 0.03),
+		    0px 1px 0px rgba(0, 0, 0, 0.12);
+	padding:20px !important;
+	max-width: 100% !important;
+	width:100%;
+	height:100%
+}
+
+tbody > tr > td:first-child{
+	border-right: 20px solid transparent;
+}
+
+.nest{
+	margin:0 0px 20px 0;
+}
+
+.img-cell img{
+	width:100%
+}
+
+.nest-td{
+	height:100%;
+	padding-left: 20px !important;
+}
+
+.speciesinfos{
+	border: 20px solid #fff;
+}
+
+.nest th,
+.titlebloc{
+	text-transform: uppercase;
+	color:#333;
+	padding-bottom:20px;
+}
+
+.inln{
+	color:#777;
+	line-height:1.5em
+}
+
+.inln a{
+	color: rgba(41, 128, 185, 1);
+	text-decoration:none;
+	border-bottom: 1px solid rgba(41, 128, 185, 0.5);
+	transition-duration:0.2s;
+}
+
+.inln a:hover{
+	border-bottom: 3px solid rgba(41, 128, 185, 0.5);
+}
 </style>
 
 <div class="creature-datasheet page">
