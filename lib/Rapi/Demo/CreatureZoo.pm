@@ -35,7 +35,7 @@ sub _build_base_plugins {[
 sub _build_base_config {
   my $self = shift;
   
-  $self->_init_data_dir;
+  $self->_init_local_data unless (-d $self->data_dir);
 
   return {
     'RapidApp' => {
@@ -139,9 +139,9 @@ has '_tpl_dir', is => 'ro', lazy => 1, default => sub {
   return $tpl_dir;
 }, isa => Str;
 
-has '_init_cas_store_dir', is => 'ro', isa => Str, lazy => 1, default => sub {
+has '_init_data_dir', is => 'ro', isa => Str, lazy => 1, default => sub {
   my $self = shift;
-  dir( $self->share_dir, '_init_cas_store' )->stringify
+  dir( $self->share_dir, '_init_data_dir' )->stringify
 }, init_arg => undef;
 
 
@@ -168,31 +168,12 @@ after 'bootstrap' => sub {
   $c->model('DB')->_auto_deploy_schema
 };
 
-
-sub _init_data_dir {
-  my $self = shift;
-
-  unless(-d (my $dir = $self->data_dir)) {
-    print STDERR "Initializing local data_dir '$dir'\n" if ($self->debug);
-    dir($dir)->mkpath
-  }
-  
-  unless(-d (my $dir = $self->local_template_dir)) {
-    print STDERR "Creating local template dir '$dir'\n" if ($self->debug);
-    dir($dir)->mkpath
-  }
-  
-  $self->_init_cas unless (-d $self->cas_store_dir);
-
-}
-
-
-sub _init_cas {
+sub _init_local_data {
   my ($self, $ovr) = @_;
   
-  my ($src,$dst) = (dir($self->_init_cas_store_dir),dir($self->cas_store_dir));
+  my ($src,$dst) = (dir($self->_init_data_dir),dir($self->data_dir));
   
-  die "_init_cas(): ERROR: init cas dir '$src' not found!" unless (-d $src);
+  die "_init_local_data(): ERROR: init data dir '$src' not found!" unless (-d $src);
 
   if(-d $dst) {
     if($ovr) {
@@ -203,29 +184,38 @@ sub _init_cas {
     }
   }
   
-  print STDERR "Initializing $dst\n" if ($self->debug);
+  print STDERR "\n Initializing local data_dir $dst/\n" if ($self->debug);
   
-  for my $dir ($src->children) {
-    die "unexpected cas src file/dir '$dir'" unless (
-      blessed $dir && $dir->isa('Path::Class::Dir')
-      && length($dir->basename) == 2
-    );
-    
-    my $tdir = $dst->subdir($dir->basename);
-    $tdir->mkpath;
-    
-    for my $file ($dir->children) {
-      die "unexpected cas src file/dir '$dir'" unless (
-        blessed $file && $file->isa('Path::Class::File')
-        && length($file->basename) == 38
-      );
-      
-      my $tfile = $tdir->file($file->basename);
-      $tfile->spew( scalar $file->slurp );
-    }
-  }
+  $self->_recurse_copy($src,$dst);
+  
+  print STDERR "\n" if ($self->debug);
 }
 
+
+sub _recurse_copy {
+  my ($self, $Src, $Dst, $lvl) = @_;
+  
+  $lvl ||= 0;
+  $lvl++;
+  
+  die "Destination path '$Dst' already exists!" if (-e $Dst);
+  
+  print STDERR join('',
+    '  ',('  ' x $lvl),$Dst->basename,
+    $Dst->is_dir ? '/' : '', "\n"
+  ) if ($self->debug);
+
+  if($Src->is_dir) {
+    $Dst->mkpath;
+    for my $Child ($Src->children) {
+      my $meth = $Child->is_dir ? 'subdir' : 'file';
+      $self->_recurse_copy($Child,$Dst->$meth($Child->basename),$lvl);
+    }
+  }
+  else {
+    $Dst->spew( scalar $Src->slurp );
+  }
+}
 
 1;
 
