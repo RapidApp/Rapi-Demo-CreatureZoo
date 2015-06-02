@@ -10,7 +10,8 @@ use Rapi::Demo::CreatureZoo;
 my $app = Rapi::Demo::CreatureZoo->new(
   plugins => [
     '+Rapi::Demo::CreatureZoo::Util::Plugin::DemoAuthOvr'
-  ]
+  ],
+  data_dir => "$Bin/creaturezoo_data"
 );
 
 # Plack/PSGI app:
