@@ -5,7 +5,7 @@ use warnings;
 
 # ABSTRACT: RapidApp::Builder demo application
 
-use RapidApp 1.0401_12;
+use RapidApp 1.0401_14;
 
 use Moose;
 extends 'RapidApp::Builder';
@@ -14,11 +14,12 @@ use Types::Standard qw(:all);
 
 use RapidApp::Util ':all';
 use File::ShareDir qw(dist_dir);
-use FindBin;
 use Path::Class qw(file dir);
 use Module::Runtime;
 use Scalar::Util 'blessed';
 use Cwd;
+
+my $Bin = file($0)->parent; # Like FindBin
 
 our $VERSION = '0.001';
 
@@ -74,7 +75,7 @@ has 'share_dir', is => 'ro', isa => Str, lazy => 1, default => sub {
   my $self = shift;
   $ENV{RAPI_DEMO_CREATUREZOO_SHARE_DIR} || (
     try{dist_dir('Rapi-Demo-CreatureZoo')} || (
-      -d "$FindBin::Bin/share" ? "$FindBin::Bin/share" : "$FindBin::Bin/../share" 
+      -d "$Bin/share" ? "$Bin/share" : "$Bin/../share" 
     )
   )
 };
