@@ -36,7 +36,7 @@ sub _build_base_plugins {[
 sub _build_base_config {
   my $self = shift;
   
-  $self->_init_local_data unless (-d $self->data_dir);
+  $self->_init_local_data if $self->clear_data_dir || ! (-d $self->data_dir);
 
   return {
     'RapidApp' => {
@@ -79,6 +79,10 @@ has 'share_dir', is => 'ro', isa => Str, lazy => 1, default => sub {
     )
   )
 };
+
+# Set to true to force init the local data dir on every startup,
+# even if it already exists (DANGEROUS!)
+has 'clear_data_dir', is => 'ro', isa => Bool, default => sub {0};
 
 has 'data_dir', is => 'ro', isa => Str, lazy => 1, default => sub {
   my $self = shift;
@@ -171,6 +175,8 @@ after 'bootstrap' => sub {
 
 sub _init_local_data {
   my ($self, $ovr) = @_;
+  
+  $ovr = 1 if ($self->clear_data_dir);
   
   my ($src,$dst) = (dir($self->_init_data_dir),dir($self->data_dir));
   
