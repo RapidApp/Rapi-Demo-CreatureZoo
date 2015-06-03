@@ -5,7 +5,7 @@ use warnings;
 
 # ABSTRACT: RapidApp::Builder demo application
 
-use RapidApp 1.0401_14;
+use RapidApp 1.0401_15;
 
 use Moose;
 extends 'RapidApp::Builder';
@@ -21,7 +21,7 @@ use Cwd;
 
 my $Bin = file($0)->parent; # Like FindBin
 
-our $VERSION = '0.001';
+our $VERSION = '0.002';
 
 has '+base_appname', default => sub { 'CreatureZoo::App' };
 has '+debug',        default => sub {1};
