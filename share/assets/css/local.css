@@ -11,7 +11,7 @@ div.creature-datasheet .img-cell {
 }
 
 div.creature-datasheet.page .img-cell {
-  max-width: 300px;
+  max-width: 275px;
   padding-right:15px;
 }
 
@@ -24,7 +24,7 @@ div.creature-datasheet .img-cell > * {
 */
 
 div.creature-datasheet {
-  margin: 10px;
+  margin: 5px;
   background-color: #ffffff;
   color: #333333;
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
@@ -32,8 +32,17 @@ div.creature-datasheet {
   line-height: 20px;
 }
 
+div.creature-datasheet.page {
+  margin: 0px;
+}
+
 .creature-datasheet table.top-table {
 	border: 1px solid #DDDDDD;
+	/*min-width: 600px;*/
+}
+
+.creature-datasheet.page table.top-table {
+	border: 0px;
 	/*min-width: 600px;*/
 }
 
@@ -57,7 +66,7 @@ div.creature-datasheet {
 
 .creature-datasheet table.top-table div.detail {
   padding:5px;
-  max-width: 700px;
+  max-width: 550px;
 }
 
 
