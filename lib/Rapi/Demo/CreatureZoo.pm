@@ -43,7 +43,8 @@ sub _build_base_config {
       local_assets_dir => $self->_assets_dir,
       load_modules => {
         creatures     => 'Rapi::Demo::CreatureZoo::Module::CreatureDV',
-        creature_grid => 'Rapi::Demo::CreatureZoo::Module::CreatureGrid'
+        creature_grid => 'Rapi::Demo::CreatureZoo::Module::CreatureGrid',
+        creature_prop => 'Rapi::Demo::CreatureZoo::Module::CreatureProp'
       }
     },
     'Plugin::RapidApp::AuthCore' => {
