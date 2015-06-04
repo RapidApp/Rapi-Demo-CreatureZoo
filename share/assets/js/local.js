@@ -114,7 +114,7 @@ RA.ux.cZoo.imgRenderSpeciesBarChart = function(sData) {
 };
 
 
-RA.ux.cZoo.imgRenderDietTypePieChart = function(dtData) {
+RA.ux.cZoo.imgRenderDietTypePieChart = function(dtData,legend_id) {
 
   // We expect 'this' scope to be an <img> within the target <canvas> element
   var canvas = this.parentElement;
@@ -180,12 +180,14 @@ RA.ux.cZoo.imgRenderDietTypePieChart = function(dtData) {
     //var myPieChart = new Chart(ctx).Doughnut(data,options);
     //var myPieChart = new Chart(ctx).PolarArea(data,options);
     
-    // quick and dirty legend -- these sizings are designed to work with 
-    // the dashboard template
-    var legendDiv = document.createElement("div");
-    legendDiv.style = "float:right;width:185px;padding-top:25px;";
-    legendDiv.innerHTML = myPieChart.generateLegend();
-    canvas.parentElement.appendChild(legendDiv);
+    // Reder the legend to the client-supplied element id:
+    if(legend_id) {
+      var legendEl = document.getElementById(legend_id);
+      if(legendEl) {
+        legendEl.innerHTML = myPieChart.generateLegend();
+      }
+    }
+    
 
     canvas.onclick = function(evt) {
       var activePoints = myPieChart.getSegmentsAtEvent(evt);
