@@ -5,14 +5,18 @@
     Temp styles                   */
 
 div.creature-datasheet .img-cell {
-  /*max-height: 250px;*/
-  max-width: 250px;
+  max-width:150px;
   padding-right:15px;
+  padding-left:5px;
 }
 
 div.creature-datasheet.page .img-cell {
-  max-width: 275px;
+  max-width: 100%;
   padding-right:15px;
+}
+
+div.creature-datasheet.page .img-cell img {
+  width:100%;
 }
 
 
@@ -45,6 +49,8 @@ div.creature-datasheet.page {
 	border: 0px;
 	/*min-width: 600px;*/
 }
+
+
 
 .creature-datasheet table.top-table > tbody > tr > td {
 	padding: 2px 8px 2px 3px;

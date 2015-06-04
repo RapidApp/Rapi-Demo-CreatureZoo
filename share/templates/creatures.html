@@ -1,26 +1,12 @@
-
+ 
 <title class="icon-bugs-yellow">Creatures DataView</title>
 
 <div class="creature-datasheet">
 
-<a title="Reload Tab" class="ra-icon-refresh-tiny ra-autopanel-reloader">
-  <span class="ra-autopanel-reloader">Reload Tab</span>
-</a>
-
 <center>
-<h2>Creatures DataView</h2>
-
-<br>
-
-Uses the same data as the auto-generated
-<a 
-  class="with-icon icon-bugs-yellow"
-  href="#!/main/db/db_creature"
->Creatures Grid</a>
-<br>
 
 <!-- example of inline of ALL store buttons -->
-<div style="font-size:0.9em;">
+<div style="font-size:0.85em;padding-bottom:5px;">
   [% r.store_button.add    %] |  
   [% r.store_button.edit   %] |  
   [% r.store_button.delete %] | 
@@ -30,30 +16,32 @@ Uses the same data as the auto-generated
 </div>
 
 <tpl for=".">
-<div class="dv-select" style="margin-top:20px;display:inline-block;">
+<div class="dv-select" style="margin-bottom:20px;display:inline-block;">
 
   <table class="top-table shadow" >
   
     <tr>
       <th>
       <div style="float:left;padding-left:4px;padding-right:4px;">  
-        <div class="x-grid3-row-checker" style="width:18px;">&nbsp;</div>
+        <div class="x-grid3-row-checker" 
+        style="width:18px;">&nbsp;</div>
       </div>
       
       Name:</th>
       <td>
-        [% r.autofield.name %] <div style="float:right;">[% r.toggle.edit %]</div>
+        [% r.autofield.name %] <div style="float:right;">
+          [% r.toggle.edit %]</div>
         
       </td>
     </tr>
     <tr>
-      <td >
+      <td style="width:40%;">
         <div class="img-cell">
           [% r.autofield.image %]
           
         </div>
       </td>
-      <td style="vertical-align:top;">
+      <td style="vertical-align:top;width:60%;">
         <table class="top-table nest">
           <tr>
             <th>Species:</th>
