@@ -48,7 +48,7 @@ sub _build_base_config {
       }
     },
     'Plugin::RapidApp::AuthCore' => {
-      login_logo_url => '/assets/local/misc/static/img/creaturezoo_login_logo.png'
+      login_logo_url => '/assets/local/misc/static/img/cz_login_logo.png'
     },
     'Plugin::RapidApp::TabGui' => {
       title              => 'Creature Zoo Intranet',
@@ -91,25 +91,25 @@ has 'data_dir', is => 'ro', isa => Str, lazy => 1, default => sub {
   dir( cwd(), 'creaturezoo_data')->stringify;
 };
 
-has 'creaturezoo_db', is => 'ro', isa => Str, lazy => 1, default => sub {
+has 'creaturezoo_db', is => 'ro', lazy => 1, default => sub {
   my $self = shift;
   file( $self->data_dir, 'creaturezoo.db' )->stringify
-};
+}, isa => Str;
 
-has 'coreschema_db', is => 'ro', isa => Str, lazy => 1, default => sub {
+has 'coreschema_db', is => 'ro', lazy => 1, default => sub {
   my $self = shift;
   file( $self->data_dir, 'rapidapp_coreschema.db' )->stringify
-};
+}, isa => Str;
 
-has 'cas_store_dir', is => 'ro', isa => Str, lazy => 1, default => sub {
+has 'cas_store_dir', is => 'ro', lazy => 1, default => sub {
   my $self = shift;
   dir( $self->data_dir, 'cas_store' )->stringify
-};
+}, isa => Str;
 
-has 'local_template_dir', is => 'ro', isa => Str, lazy => 1, default => sub {
+has 'local_template_dir', is => 'ro', lazy => 1, default => sub {
   my $self = shift;
   dir( $self->data_dir, 'templates' )->stringify
-};
+}, isa => Str;
 
 
 has '_template_include_paths', is => 'ro', lazy => 1, default => sub {
@@ -145,10 +145,10 @@ has '_tpl_dir', is => 'ro', lazy => 1, default => sub {
   return $tpl_dir;
 }, isa => Str;
 
-has '_init_data_dir', is => 'ro', isa => Str, lazy => 1, default => sub {
+has '_init_data_dir', is => 'ro', lazy => 1, default => sub {
   my $self = shift;
   dir( $self->share_dir, '_init_data_dir' )->stringify
-}, init_arg => undef;
+}, isa => Str, init_arg => undef;
 
 
 
@@ -181,14 +181,18 @@ sub _init_local_data {
   
   my ($src,$dst) = (dir($self->_init_data_dir),dir($self->data_dir));
   
-  die "_init_local_data(): ERROR: init data dir '$src' not found!" unless (-d $src);
+  die "_init_local_data(): ERROR: init data dir '$src' not found!" 
+    unless (-d $src);
 
   if(-d $dst) {
     if($ovr) {
       $dst->rmtree;
     }
     else {
-      die "_init_cas(): Destination dir '$dst' already exists -- call with true arg to overwrite.";
+      die join('',
+        "_init_cas(): Destination dir '$dst' already exists",
+        " -- call with true arg to overwrite."
+      );
     }
   }
   
@@ -253,25 +257,11 @@ Or, from the command-line:
 
 =head1 CONFIGURATION
 
-C<Rapi::Demo::CreatureZoo> extends L<RapidApp::Builder> and supports all of its options, as well as the 
-following params specific to this module:
+C<Rapi::Demo::CreatureZoo> extends L<RapidApp::Builder> and supports all 
+of its options, as well as the following params specific to this module:
 
-=head2 creaturezoo_db
 
-Path to the SQLite database file, which may or may not already exist. If the file does not already
-exist, it is created as a copy from the default database from the sharedir.
-
-Defaults to C<'creaturezoo.db'> in the current working directory.
-
-=head1 METHODS
-
-=head2 init_db
-
-Copies the default database to the path specified by C<creaturezoo_db>. Pass a true value as the first
-argument to overwrite the target file if it already exists.
-
-This method is called automatically the first time the module is loaded, or if the C<creaturezoo_db> file
-doesn't exist.
+...
 
 =head1 SEE ALSO
 
