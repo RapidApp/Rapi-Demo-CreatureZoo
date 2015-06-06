@@ -100,7 +100,6 @@ RA.ux.cZoo.imgRenderSpeciesBarChart = function(sData) {
         var itm = itmMap[activeBars[0].label];
         if(itm && itm.id) {
           var url = [
-            Ext.ux.RapidApp.AJAX_URL_PREFIX || '', //<-- in case we're mounted somewhere
             '/main/db/db_species/item/',itm.id
             //,'/rel/creatures' //<-- if we wanted to link directly to the creature list
           ].join('');
@@ -203,7 +202,6 @@ RA.ux.cZoo.imgRenderDietTypePieChart = function(dtData,legend_id) {
           ].join('&');
           
           var url = [
-            Ext.ux.RapidApp.AJAX_URL_PREFIX || '', //<-- in case we're mounted somewhere
             '/main/db/db_creature?',query_string
           ].join('');
           
