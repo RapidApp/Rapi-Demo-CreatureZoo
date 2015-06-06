@@ -1,7 +1,8 @@
 .dashboard {
-  height:100%;
-  margin: -2px -5px;
+  position:absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
   background-image: url(../misc/static/img/crossword.png);
+  overflow:auto; /* handle its own scrolling */
 }
 
 .dashboard div.cell {
