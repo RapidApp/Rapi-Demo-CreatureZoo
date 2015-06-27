@@ -214,6 +214,15 @@ RA.ux.cZoo.imgRenderDietTypePieChart = function(dtData,legend_id) {
 };
 
 
-
-
+// --- silence annoying javascript warning:
+//  "IndexSizeError: Index or size is negative or greater than the allowed amount"
+// Which gets thrown when the pie chart is generated (apparent Chart.js bug). 
+// Its non-fatal, but I'm just tired of looking at it
+var orig_draw = Chart.Arc.prototype.draw;
+Chart.Arc.prototype.draw = function() {
+  try{
+    return orig_draw.apply(this,arguments);
+  }catch(err){};
+}
+// ---
 
